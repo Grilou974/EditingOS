@@ -1,0 +1,8 @@
+{
+  "name": "editing-os",
+  "version": "1.0.0",
+  "private": true,
+  "description": "EditingOS — atelier de montage local pour projets HyperFrames",
+  "type": "module",
+  "scripts": { "start": "node server.mjs" }
+}

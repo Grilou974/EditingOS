@@ -1,0 +1,66 @@
+[
+  {
+    "id": "short-politique-chat",
+    "name": "Short actu — Chat 2D",
+    "ratio": "9:16",
+    "usage": "Actualité & politique, 30–60 s",
+    "description": "Le chat (images 2D, une par expression) commente l'actu en bas à gauche. Le haut montre la preuve : capture d'article, carte, chiffre, photo. Rythme rapide, pas de sous-titres.",
+    "zones": [
+      { "label": "Bandeau actu / titre", "kind": "text", "x": 6, "y": 5, "w": 88, "h": 9 },
+      { "label": "Visuel actu (capture, carte, chiffre)", "kind": "media", "x": 6, "y": 16, "w": 88, "h": 42 },
+      { "label": "Chat — expressions", "kind": "character", "x": 4, "y": 60, "w": 50, "h": 34 },
+      { "label": "Punchline / mot-clé", "kind": "accent", "x": 56, "y": 64, "w": 40, "h": 18 }
+    ],
+    "rules": [
+      "Un plan toutes les 1,5–3 s ; changer l'expression du chat à chaque idée.",
+      "Pas de sous-titres : les mots-clés seuls apparaissent en punchline.",
+      "Marges de sécurité 6 % ; rien sous 94 % (interface TikTok/Shorts).",
+      "Sources visibles à l'écran quand on cite un chiffre ou un article."
+    ]
+  },
+  {
+    "id": "explainer-3d-iso",
+    "name": "Explainer 3D isométrique",
+    "ratio": "9:16",
+    "usage": "Cours, concepts, 60–90 s",
+    "description": "Un monde 3D isométrique unique que la caméra parcourt en zoomant d'une zone à l'autre. Cartes de texte en haut et en bas, barre de progression du cours.",
+    "zones": [
+      { "label": "Titre / définition", "kind": "text", "x": 6, "y": 7, "w": 88, "h": 20 },
+      { "label": "Scène 3D (caméra iso)", "kind": "media", "x": 0, "y": 28, "w": 100, "h": 50 },
+      { "label": "Carte explicative", "kind": "accent", "x": 6, "y": 79, "w": 88, "h": 12 },
+      { "label": "Progression", "kind": "text", "x": 6, "y": 95, "w": 88, "h": 1.5 }
+    ],
+    "rules": [
+      "Une seule île, plusieurs zones : chaque notion = un zoom caméra.",
+      "Voix off qui pilote le minutage (scènes recalées sur la durée réelle).",
+      "Chiffres clés en count-up."
+    ]
+  },
+  {
+    "id": "split-ia-original",
+    "name": "Split IA / original",
+    "ratio": "9:16",
+    "usage": "Comparaisons avant / après",
+    "description": "En haut la version IA, en bas la version originale, avec une étiquette sur chaque moitié pour que le spectateur compare d'un coup d'œil.",
+    "zones": [
+      { "label": "Version IA", "kind": "media", "x": 0, "y": 0, "w": 100, "h": 49.5 },
+      { "label": "Version originale", "kind": "character", "x": 0, "y": 50.5, "w": 100, "h": 49.5 },
+      { "label": "Étiquette", "kind": "accent", "x": 6, "y": 4, "w": 30, "h": 5 },
+      { "label": "Étiquette", "kind": "accent", "x": 6, "y": 54, "w": 30, "h": 5 }
+    ],
+    "rules": ["Les deux moitiés restent synchronisées.", "Étiquettes toujours visibles en haut à gauche de chaque moitié."]
+  },
+  {
+    "id": "facecam-bas",
+    "name": "Face cam en bas",
+    "ratio": "9:16",
+    "usage": "Réactions, démonstrations",
+    "description": "Je suis en bas de l'écran et je commente ce qui se passe en haut : captures, illustrations, zooms sur une zone.",
+    "zones": [
+      { "label": "Illustration / partage d'écran", "kind": "media", "x": 0, "y": 0, "w": 100, "h": 58 },
+      { "label": "Titre de section", "kind": "accent", "x": 6, "y": 54, "w": 60, "h": 7 },
+      { "label": "Face cam", "kind": "character", "x": 0, "y": 60, "w": 100, "h": 40 }
+    ],
+    "rules": ["Zoom sur la zone dont on parle (animation « Zoom sur zone »).", "Le titre de section chevauche la jonction des deux zones."]
+  }
+]

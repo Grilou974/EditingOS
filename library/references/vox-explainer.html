@@ -1,0 +1,15 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800;900&family=Sora:wght@700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--ink:#0f1626;--paper:#f6f1e7;--y:#ffd23f;--r:#ff4d4d;--b:#3a86ff;--g:#2ec4b6}
+html,body{width:100%;height:100%;overflow:hidden}
+body{font-family:Inter,system-ui,sans-serif;display:grid;place-items:center;background:var(--bg,#0f1626);color:#fff;font-size:4vmin}
+.stage{position:relative;width:100%;height:100%;display:grid;place-items:center}
+body{--bg:#efe7d6;color:#1a1a1a}
+.paper{width:70%;background:#fbf6ea;padding:4vmin;box-shadow:0 2vmin 4vmin rgba(0,0,0,.2);transform:rotate(-2deg);animation:in 4s infinite}
+.paper p{font-family:Georgia,serif;font-size:4.6vmin;line-height:1.5}
+mark{background:linear-gradient(#ffe14d,#ffe14d) no-repeat 0 85%/0% 60%;animation:m 4s infinite;color:inherit}
+@keyframes m{0%,25%{background-size:0% 60%}45%,90%{background-size:100% 60%}}
+@keyframes in{0%{opacity:0;transform:rotate(-2deg) translateY(4vmin)}10%,90%{opacity:1;transform:rotate(-2deg)}100%{opacity:0}}
+</style></head><body><div class="stage"><div class="paper"><p>Document d'archive : <mark>la phrase importante</mark> ressort au surligneur.</p></div></div></body></html>
