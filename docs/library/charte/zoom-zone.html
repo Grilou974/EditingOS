@@ -1,0 +1,18 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800;900&family=Sora:wght@700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--ink:#0f1626;--paper:#f6f1e7;--y:#ffd23f;--r:#ff4d4d;--b:#3a86ff;--g:#2ec4b6}
+html,body{width:100%;height:100%;overflow:hidden}
+body{font-family:Inter,system-ui,sans-serif;display:grid;place-items:center;background:var(--bg,#0f1626);color:#fff;font-size:4vmin}
+.stage{position:relative;width:100%;height:100%;display:grid;place-items:center}
+
+body{--bg:#1b2333}
+.doc{width:62%;background:#fff;border-radius:2vmin;padding:4vmin;color:var(--ink);animation:z 4s infinite;transform-origin:50% 62%}
+.doc h4{font-family:Sora;font-size:4.4vmin;margin-bottom:2vmin}
+.ln{height:2.2vmin;background:#d8dbe2;border-radius:1vmin;margin:1.6vmin 0}
+.ln.k{background:var(--y)}
+.sp{position:absolute;inset:0;background:radial-gradient(ellipse 34% 10% at 50% 58%,transparent 60%,rgba(0,0,0,.65) 100%);opacity:0;animation:sp 4s infinite}
+@keyframes z{0%,25%{transform:none}50%,85%{transform:scale(1.9)}100%{transform:none}}
+@keyframes sp{0%,15%{opacity:0}30%,85%{opacity:1}100%{opacity:0}}
+</style></head><body><div class="stage"><div class="doc"><h4>Article de presse</h4><div class="ln"></div><div class="ln" style="width:80%"></div><div class="ln k"></div><div class="ln" style="width:70%"></div><div class="ln"></div></div><div class="sp"></div></div></body></html>

@@ -1,0 +1,17 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800;900&family=Sora:wght@700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--ink:#0f1626;--paper:#f6f1e7;--y:#ffd23f;--r:#ff4d4d;--b:#3a86ff;--g:#2ec4b6}
+html,body{width:100%;height:100%;overflow:hidden}
+body{font-family:Inter,system-ui,sans-serif;display:grid;place-items:center;background:var(--bg,#0f1626);color:#fff;font-size:4vmin}
+.stage{position:relative;width:100%;height:100%;display:grid;place-items:center}
+
+.bar{position:absolute;left:0;right:0;top:40%;height:14vmin;background:#fff;color:var(--ink);display:flex;align-items:center;overflow:hidden;animation:in 4s infinite}
+.live{flex:none;background:var(--r);color:#fff;font-weight:900;height:100%;display:flex;align-items:center;gap:1.4vmin;padding:0 3vmin;letter-spacing:.1em;font-size:4vmin;z-index:1}
+.dot{width:2vmin;height:2vmin;border-radius:50%;background:#fff;animation:p 1s infinite}
+.tk{white-space:nowrap;font-weight:800;font-size:5vmin;padding-left:4vmin;animation:tk 4s linear infinite}
+@keyframes p{50%{opacity:.2}}
+@keyframes tk{from{transform:translateX(30%)}to{transform:translateX(-40%)}}
+@keyframes in{0%{transform:translateX(-100%)}10%,90%{transform:none}100%{transform:translateX(100%)}}
+</style></head><body><div class="stage"><div class="bar"><div class="live"><span class="dot"></span>DIRECT</div><div class="tk">Assemblée nationale : vote attendu ce soir sur le texte · Assemblée nationale : vote attendu ce soir</div></div></div></body></html>

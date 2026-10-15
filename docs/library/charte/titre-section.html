@@ -1,0 +1,17 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800;900&family=Sora:wght@700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--ink:#0f1626;--paper:#f6f1e7;--y:#ffd23f;--r:#ff4d4d;--b:#3a86ff;--g:#2ec4b6}
+html,body{width:100%;height:100%;overflow:hidden}
+body{font-family:Inter,system-ui,sans-serif;display:grid;place-items:center;background:var(--bg,#0f1626);color:#fff;font-size:4vmin}
+.stage{position:relative;width:100%;height:100%;display:grid;place-items:center}
+
+.lab{position:absolute;top:34%;left:10%;background:var(--y);color:var(--ink);font-weight:900;letter-spacing:.15em;font-size:3.2vmin;padding:1.2vmin 2.4vmin;border-radius:1vmin;animation:lab 4s infinite}
+.t{position:absolute;top:44%;left:10%;font-family:Sora;font-weight:800;font-size:11vmin;line-height:1;overflow:hidden}
+.t span{display:block;animation:up 4s infinite}
+.wipe{position:absolute;top:44%;left:10%;height:11vmin;width:70%;background:var(--y);transform-origin:left;animation:wipe 4s infinite;z-index:2}
+@keyframes lab{0%{opacity:0;transform:translateX(-4vmin)}10%,85%{opacity:1;transform:none}100%{opacity:0}}
+@keyframes wipe{0%,8%{transform:scaleX(0);transform-origin:left}20%{transform:scaleX(1);transform-origin:left}21%{transform:scaleX(1);transform-origin:right}34%,100%{transform:scaleX(0);transform-origin:right}}
+@keyframes up{0%,20%{opacity:0}21%,85%{opacity:1}100%{opacity:0}}
+</style></head><body><div class="stage"><div class="lab">CHAPITRE 2</div><div class="wipe"></div><div class="t"><span>La réforme</span></div></div></body></html>

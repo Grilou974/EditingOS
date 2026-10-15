@@ -1,0 +1,56 @@
+[
+  {
+    "id": "vox-explainer",
+    "name": "Vox Explainer",
+    "platform": "YouTube",
+    "url": "https://www.youtube.com/@Vox",
+    "demo": "references/vox-explainer.html",
+    "traits": [
+      "Textures papier et coupures d'archives",
+      "Surligneur sur les documents",
+      "Cartes et zooms",
+      "Rythme posé, voix off"
+    ],
+    "notes": "Inspiration pour les passages « preuve » : capture d'article + surlignage."
+  },
+  {
+    "id": "carte-trajet",
+    "name": "Récit sur carte",
+    "platform": "YouTube",
+    "url": "",
+    "demo": "references/carte-trajet.html",
+    "traits": [
+      "Tracés animés sur carte",
+      "Épingles qui apparaissent",
+      "Caméra qui suit le tracé"
+    ],
+    "notes": "Pour l'actu internationale : situer un événement en 2 secondes."
+  },
+  {
+    "id": "flat-vectoriel",
+    "name": "Flat vectoriel coloré",
+    "platform": "YouTube",
+    "url": "",
+    "demo": "references/flat-vectoriel.html",
+    "traits": [
+      "Formes géométriques simples",
+      "Couleurs saturées sur fond sombre",
+      "Mouvements rebondis"
+    ],
+    "notes": "Ambiance ludique pour les transitions et les fonds."
+  },
+  {
+    "id": "mascotte-actu",
+    "name": "Mascotte qui commente l'actu (type « Trash »)",
+    "platform": "YouTube / Shorts",
+    "url": "",
+    "demo": "charte/chat-expressions.html",
+    "traits": [
+      "Personnage 2D, une image par expression",
+      "Expressions qui changent à chaque idée",
+      "Coupes rapides, ton jeune mais pro",
+      "Pas de sous-titres"
+    ],
+    "notes": "Référence citée pour mes shorts politiques avec le chat. À compléter : lien de la chaîne + 2–3 vidéos modèles."
+  }
+]

@@ -1,0 +1,14 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800;900&family=Sora:wght@700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--ink:#0f1626;--paper:#f6f1e7;--y:#ffd23f;--r:#ff4d4d;--b:#3a86ff;--g:#2ec4b6}
+html,body{width:100%;height:100%;overflow:hidden}
+body{font-family:Inter,system-ui,sans-serif;display:grid;place-items:center;background:var(--bg,#0f1626);color:#fff;font-size:4vmin}
+.stage{position:relative;width:100%;height:100%;display:grid;place-items:center}
+
+.w{width:74%}.r{display:flex;align-items:center;gap:2vmin;margin:3vmin 0;font-weight:800;font-size:4vmin}
+.r b{width:22%}.r i{display:block;height:6vmin;border-radius:1.2vmin;transform-origin:left;animation:g 4s infinite}
+.r:nth-child(2) i{animation-delay:.2s}.r:nth-child(3) i{animation-delay:.4s}
+@keyframes g{0%{transform:scaleX(0)}20%,88%{transform:scaleX(1)}100%{transform:scaleX(0)}}
+</style></head><body><div class="stage"><div class="w"><div class="r"><b>Oui</b><i style="width:52%;background:var(--g)"></i>52 %</div><div class="r"><b>Non</b><i style="width:38%;background:var(--r)"></i>38 %</div><div class="r"><b>NSP</b><i style="width:10%;background:#8a94a6"></i>10 %</div><p style="font-size:2.4vmin;opacity:.6">Valeurs d'exemple</p></div></div></body></html>

@@ -2,7 +2,31 @@
 const $ = (s, el = document) => el.querySelector(s);
 const view = $("#view");
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+// Vitrine (GitHub Pages) : pas de serveur, données figées dans api/*.json, retours gardés dans le navigateur.
+const STATIC = !!window.EOS_STATIC;
+const LOCAL_ONLY = "Disponible dans la version locale d'EditingOS (Lancer-EditingOS.cmd)";
+async function staticApi(url, opts) {
+  const m = (opts.method || "GET").toUpperCase();
+  const fbKey = (id) => "fb:" + id;
+  let r;
+  if ((r = url.match(/^\/api\/projects\/(\w+)\/feedback(?:\/(\w+))?$/))) {
+    const items = store.get(fbKey(r[1]), []);
+    if (m === "GET") return items;
+    if (m === "POST") { const it = { id: Math.random().toString(36).slice(2, 10), status: "à faire", createdAt: new Date().toISOString(), ...opts.body }; items.push(it); items.sort((a, b) => a.time - b.time); store.set(fbKey(r[1]), items); return it; }
+    if (m === "PATCH") { const it = items.find((i) => i.id === r[2]); Object.assign(it, opts.body); store.set(fbKey(r[1]), items); return it; }
+    if (m === "DELETE") { store.set(fbKey(r[1]), items.filter((i) => i.id !== r[2])); return { ok: true }; }
+  }
+  if (url === "/api/refresh") url = "/api/overview";
+  else if (m !== "GET") throw new Error(LOCAL_ONLY);
+  if (url === "/api/jobs") return [];
+  if ((r = url.match(/^\/api\/projects\/(\w+)$/))) return (await staticApi("/api/overview", {})).projects.find((p) => p.id === r[1]);
+  const res = await fetch(url.slice(1) + ".json");
+  if (!res.ok) throw new Error("Données de démonstration introuvables");
+  return res.json();
+}
+window.addEventListener("unhandledrejection", (e) => toast(e.reason?.message || String(e.reason)));
 const api = async (url, opts = {}) => {
+  if (STATIC) return staticApi(url, opts);
   const r = await fetch(url, { headers: { "Content-Type": "application/json" }, ...opts, body: opts.body ? JSON.stringify(opts.body) : undefined });
   const j = await r.json().catch(() => ({}));
   if (!r.ok) throw new Error(j.error || r.statusText);
@@ -22,7 +46,7 @@ const ago = (iso) => {
 };
 const tc = (s) => `${String(Math.floor(s / 60)).padStart(2, "0")}:${(s % 60).toFixed(1).padStart(4, "0")}`;
 const parseTc = (v) => { const m = String(v).trim().match(/^(?:(\d+):)?(\d+(?:[.,]\d+)?)$/); return m ? (+(m[1] || 0)) * 60 + parseFloat(m[2].replace(",", ".")) : null; };
-const media = (p, file) => `/media/${p.id}/${file.split("/").map(encodeURIComponent).join("/")}`;
+const media = (p, file) => `media/${p.id}/${file.split("/").map(encodeURIComponent).join("/")}`;
 const STATE = { rendu: "Rendu à jour", perime: "Rendu périmé", brouillon: "Brouillon" };
 
 let data = { stats: null, projects: [] };
@@ -264,13 +288,13 @@ async function pageLibrary(tab) {
     let cur = store.get("charteCat", "");
     const paint = () => {
       el.innerHTML = `<div class="chips"><button data-c="" class="${!cur ? "on" : ""}">Tout</button>${cats.map((c) => `<button data-c="${esc(c)}" class="${cur === c ? "on" : ""}">${esc(c)}</button>`).join("")}</div>
-        <div class="lgrid">${lib.charte.filter((c) => !cur || c.category === cur).map((c) => `<div class="lcard"><iframe loading="lazy" src="/library/${c.file}" title="${esc(c.name)}"></iframe><div class="bd"><h4>${esc(c.name)}</h4><p>${esc(c.description)}</p><div class="foot"><code>${esc(c.file)}</code><span class="pill">${esc(c.category)}</span><a class="btn sm" target="_blank" href="/library/${c.file}">Ouvrir</a></div></div></div>`).join("")}</div>`;
+        <div class="lgrid">${lib.charte.filter((c) => !cur || c.category === cur).map((c) => `<div class="lcard"><iframe loading="lazy" src="library/${c.file}" title="${esc(c.name)}"></iframe><div class="bd"><h4>${esc(c.name)}</h4><p>${esc(c.description)}</p><div class="foot"><code>${esc(c.file)}</code><span class="pill">${esc(c.category)}</span><a class="btn sm" target="_blank" href="library/${c.file}">Ouvrir</a></div></div></div>`).join("")}</div>`;
       el.querySelectorAll(".chips button").forEach((b) => (b.onclick = () => { cur = b.dataset.c; store.set("charteCat", cur); paint(); }));
     };
     paint();
   }
   if (tab === "references") {
-    el.innerHTML = `<div class="actions"><button class="btn" id="addR">+ Nouvelle référence</button></div><div class="lgrid">${lib.references.map((r) => `<div class="lcard">${r.demo ? `<iframe loading="lazy" src="/library/${r.demo}" title="${esc(r.name)}"></iframe>` : ""}<div class="bd"><h4>${esc(r.name)}</h4><span class="lead" style="margin:0;font-size:13px">${esc(r.platform || "")}</span>
+    el.innerHTML = `<div class="actions"><button class="btn" id="addR">+ Nouvelle référence</button></div><div class="lgrid">${lib.references.map((r) => `<div class="lcard">${r.demo ? `<iframe loading="lazy" src="library/${r.demo}" title="${esc(r.name)}"></iframe>` : ""}<div class="bd"><h4>${esc(r.name)}</h4><span class="lead" style="margin:0;font-size:13px">${esc(r.platform || "")}</span>
       <div class="traits">${(r.traits || []).map((t) => `<span class="pill">${esc(t)}</span>`).join("")}</div><p>${esc(r.notes || "")}</p>
       <div class="foot"><code>${esc(r.id)}</code>${r.url ? `<a class="btn sm" target="_blank" rel="noopener" href="${esc(r.url)}">Chaîne ↗</a>` : ""}</div></div></div>`).join("")}</div>`;
     $("#addR").onclick = () => modal("Nouvelle référence", [["name", "Nom de la chaîne / du style", ""], ["platform", "Plateforme", "YouTube"], ["url", "Lien", ""], ["traits", "Traits de style (séparés par des virgules)", ""], ["notes", "Ce que je veux en reprendre", "", true]], async (v) => {
@@ -313,4 +337,5 @@ function modal(title, fields, onOk) {
   $("[data-k]", m)?.focus();
 }
 
+if (STATIC) document.querySelector(".shell").insertAdjacentHTML("afterbegin", `<div style="padding:10px 26px;background:#1a1606;border-bottom:1px solid #5a4a12;color:#f5c518;font-size:13.5px;font-weight:600">Mode vitrine — interface en lecture, retours gardés dans ce navigateur. L'atelier complet (rendus, Studio, dossiers) tourne en local avec Lancer-EditingOS.cmd.</div>`);
 load().then(route).catch((e) => (view.innerHTML = `<div class="emptystate"><h3>Serveur injoignable</h3>${esc(e.message)}</div>`));

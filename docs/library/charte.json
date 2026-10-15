@@ -1,0 +1,82 @@
+[
+  {
+    "id": "titre-section",
+    "name": "Titre de section",
+    "category": "Structure",
+    "description": "Étiquette « chapitre » puis titre qui entre derrière un aplat jaune.",
+    "file": "charte/titre-section.html",
+    "origin": "Ma charte"
+  },
+  {
+    "id": "texte-surligne",
+    "name": "Texte surligné",
+    "category": "Texte",
+    "description": "Les mots apparaissent un à un, puis un feutre jaune surligne le mot clé.",
+    "file": "charte/texte-surligne.html",
+    "origin": "Ma charte"
+  },
+  {
+    "id": "bandeau-actu",
+    "name": "Bandeau actu « DIRECT »",
+    "category": "Actu",
+    "description": "Pastille DIRECT qui pulse et titre d'actu qui défile sur un bandeau.",
+    "file": "charte/bandeau-actu.html",
+    "origin": "Ma charte"
+  },
+  {
+    "id": "chiffre-cle",
+    "name": "Chiffre clé (count-up)",
+    "category": "Données",
+    "description": "Le nombre monte jusqu'à sa valeur, avec la source en petit dessous.",
+    "file": "charte/chiffre-cle.html",
+    "origin": "Ma charte"
+  },
+  {
+    "id": "zoom-zone",
+    "name": "Zoom sur zone",
+    "category": "Partage d'écran",
+    "description": "Capture d'article : un spot isole une ligne puis la caméra zoome dessus.",
+    "file": "charte/zoom-zone.html",
+    "origin": "Ma charte"
+  },
+  {
+    "id": "chat-expressions",
+    "name": "Chat qui parle (expressions)",
+    "category": "Personnage",
+    "description": "Le chat change d'expression à chaque idée et une bulle apparaît. Le dessin sera remplacé par tes images 2D.",
+    "file": "charte/chat-expressions.html",
+    "origin": "Ma charte"
+  },
+  {
+    "id": "barres-sondage",
+    "name": "Barres de sondage",
+    "category": "Données",
+    "description": "Trois barres poussent l'une après l'autre avec leur pourcentage.",
+    "file": "charte/barres-sondage.html",
+    "origin": "Ma charte"
+  },
+  {
+    "id": "citation",
+    "name": "Citation",
+    "category": "Texte",
+    "description": "Guillemets géants, phrase citée et auteur qui glisse en dessous.",
+    "file": "charte/citation.html",
+    "origin": "Ma charte"
+  },
+  {
+    "id": "transition-whip",
+    "name": "Transition « whip »",
+    "category": "Transition",
+    "description": "Balayage rapide avec flou de mouvement entre deux plans.",
+    "file": "charte/transition-whip.html",
+    "origin": "Ma charte"
+  },
+  {
+    "id": "lower-third",
+    "name": "Lower third",
+    "category": "Structure",
+    "description": "Nom et fonction d'une personne, en deux bandes qui glissent.",
+    "file": "charte/lower-third.html",
+    "origin": "Ma charte"
+  }
+]

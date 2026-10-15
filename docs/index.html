@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>EditingOS</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ccircle cx='8' cy='8' r='6' fill='%23f5c518'/%3E%3C/svg%3E" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="app.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <header class="top">
+        <a class="brand" href="#/projets"><span class="dot"></span><b>EditingOS</b><span class="tag">atelier de montage</span></a>
+        <nav id="nav">
+          <a href="#/projets" data-r="projets">Projets</a>
+          <a href="#/studio" data-r="studio">Studio</a>
+          <a href="#/bibliotheques" data-r="bibliotheques">Bibliothèques</a>
+          <a href="#/activite" data-r="activite">Activité</a>
+        </nav>
+        <button class="btn ghost" id="refresh">Actualiser</button>
+      </header>
+      <section class="stats" id="stats"></section>
+      <main id="view"></main>
+    </div>
+    <div id="toast"></div>
+    <script>window.EOS_STATIC = true;</script>
+    <script src="app.js"></script>
+  </body>
+</html>
