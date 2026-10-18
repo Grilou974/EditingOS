@@ -3,11 +3,17 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { execFileSync } from "node:child_process";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const OUT = path.join(HERE, "docs");
 const BASE = process.env.EOS_URL || "http://localhost:4321";
-const get = async (u) => { const r = await fetch(BASE + u); if (!r.ok) throw new Error(u + " → " + r.status); return r.json(); };
+const get = async (u) => {  // réessaie : le réencodage vidéo entre deux appels laisse la connexion keep-alive se fermer
+  for (let k = 0; ; k++) {
+    try { const r = await fetch(BASE + u, { headers: { connection: "close" } }); if (!r.ok) throw new Error(u + " → " + r.status); return r.json(); }
+    catch (e) { if (k >= 3) throw e; await new Promise((ok) => setTimeout(ok, 500)); }
+  }
+};
 const write = (rel, data) => { const f = path.join(OUT, rel); fs.mkdirSync(path.dirname(f), { recursive: true }); fs.writeFileSync(f, typeof data === "string" ? data : JSON.stringify(data)); };
 // never publish local absolute paths
 const hide = (p) => "…\\videos\\" + path.basename(p);
@@ -20,10 +26,14 @@ for (const p of overview.projects) {
   p.path = hide(src);
   p.feedbackOpen = 0; p.feedbackTotal = 0;
   write(`api/projects/${p.id}/timeline.json`, await get(`/api/projects/${p.id}/timeline`));
+  // vitrine : seulement le dernier rendu, allégé (≤ 720p) pour rester bien sous la limite de 100 Mo de GitHub
+  p.renders = p.renders.slice(0, 1);
   for (const r of p.renders) {
     const dst = path.join(OUT, "media", p.id, r.file);
     fs.mkdirSync(path.dirname(dst), { recursive: true });
-    fs.copyFileSync(path.join(src, r.file), dst);
+    execFileSync("ffmpeg", ["-nostdin", "-y", "-loglevel", "error", "-i", path.join(src, r.file), "-vf", "scale='if(gt(iw,ih),-2,720)':'if(gt(iw,ih),720,-2)'",
+      "-c:v", "libx264", "-crf", "28", "-preset", "medium", "-c:a", "aac", "-b:a", "128k", "-movflags", "+faststart", dst]);
+    r.size = fs.statSync(dst).size;
   }
 }
 write("api/overview.json", overview);

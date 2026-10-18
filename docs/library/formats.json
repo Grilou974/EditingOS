@@ -1,21 +1,115 @@
 [
   {
     "id": "short-politique-chat",
-    "name": "Short actu — Chat 2D",
+    "name": "TV cat — short actu (chat 2D)",
     "ratio": "9:16",
-    "usage": "Actualité & politique, 30–60 s",
-    "description": "Le chat (images 2D, une par expression) commente l'actu en bas à gauche. Le haut montre la preuve : capture d'article, carte, chiffre, photo. Rythme rapide, pas de sous-titres.",
+    "style": "TV cat",
+    "usage": "Actualité & politique, TikTok, 30–60 s",
+    "description": "Style « TV cat » : le chat noir 2D (voix de Grilou) commente l'actu en bas à gauche, fond = vidéo d'actu (sans images violentes), titre blanc en haut, gros plans sur les mots forts, logos et étiquettes qui poppent, sous-titres centrés, CTA chat aux yeux étoilés sur halo violet.",
     "zones": [
-      { "label": "Bandeau actu / titre", "kind": "text", "x": 6, "y": 5, "w": 88, "h": 9 },
-      { "label": "Visuel actu (capture, carte, chiffre)", "kind": "media", "x": 6, "y": 16, "w": 88, "h": 42 },
-      { "label": "Chat — expressions", "kind": "character", "x": 4, "y": 60, "w": 50, "h": 34 },
-      { "label": "Punchline / mot-clé", "kind": "accent", "x": 56, "y": 64, "w": 40, "h": 18 }
+      {
+        "label": "Titre (blanc, contour noir)",
+        "kind": "text",
+        "x": 11,
+        "y": 22,
+        "w": 78,
+        "h": 8
+      },
+      {
+        "label": "Logos / étiquettes / chiffres",
+        "kind": "accent",
+        "x": 11,
+        "y": 15,
+        "w": 74,
+        "h": 26
+      },
+      {
+        "label": "Sous-titres centrés",
+        "kind": "text",
+        "x": 13,
+        "y": 46,
+        "w": 74,
+        "h": 7
+      },
+      {
+        "label": "Chat — expressions",
+        "kind": "character",
+        "x": 4,
+        "y": 56,
+        "w": 52,
+        "h": 36
+      }
     ],
     "rules": [
-      "Un plan toutes les 1,5–3 s ; changer l'expression du chat à chaque idée.",
-      "Pas de sous-titres : les mots-clés seuls apparaissent en punchline.",
-      "Marges de sécurité 6 % ; rien sous 94 % (interface TikTok/Shorts).",
-      "Sources visibles à l'écran quand on cite un chiffre ou un article."
+      "Intro « Bon » : gros plan éclair du chat c27 le temps du mot seulement (~0,5 s, effet subliminal), PAS de sous-titre sur « Bon », presque aucun blanc après (serrer_bon.py), puis tout de suite le chat en petit ; sons : whoosh grave (banque de sons) + bass hit + court miaou énervé.",
+      "Chat immobile en parlant ; il bouge seulement en gros plan ou sur les images énervées ; expressions homogènes avec l'humeur du sujet, changement ~toutes les 1 s.",
+      "Gros plans = déclic d'appareil photo (Mixkit 1133). Aucun whoosh.",
+      "Pops sur logos/étiquettes, peu de types de bruitages ; pas de bruitages comiques sur les sujets graves.",
+      "Musique lofi (Mixkit Sweet September) réglée dans le fichier, bien audible sous la voix.",
+      "Sous-titres Inter 800 blanc, contour violet #170f3d, mot actif rose #ff5d8f, toujours centrés ; masqués quand l'écran montre déjà ce qui est dit.",
+      "Voix : retirer les prises ratées et faux départs ; ne resserrer QU'ENTRE les phrases (resserrer.py puis serrer_phrases.py), jamais dans une phrase.",
+      "Zone sûre TikTok : marges ≥120 px, ≥150–170 px à droite.",
+      "Fond : jamais d'images violentes (anti-strike) ; vérifier 1 image/s du fond.",
+      "CTA : chat aux yeux étoilés sur halo violet #3b2a8f, « Like et abonne-toi <3 », sparkle + cloches.",
+      "Moteur partagé : montages/_outils/tvcat.py + plan.py par vidéo (plans du chat, fonds, chips/cartes/listes) ; voix : _outils/pipeline_voix.py.",
+      "Sons : banque perso « Grilou vtuber tiktok/sons » (plop, ding rare, coup sec pour les gros chiffres) — jamais le pet.",
+      "Titre plus bas (top 420 px), pas collé en haut.",
+      "Couper blancs et respirations APRÈS les phrases (~0,09 s gardé, serrer_fins.py), jamais au milieu d'une phrase.",
+      "Expressions : chat blasé / neutre par défaut (c31, c22, c28, c29, c30, c32) ; chat énervé seulement si la phrase est vraiment énervée."
+    ]
+  },
+  {
+    "id": "ow-coaching-master-long",
+    "name": "OW coaching master — format long",
+    "ratio": "16:9",
+    "style": "OW coaching master format long",
+    "usage": "Cours Overwatch, YouTube, 2–3 min",
+    "description": "Cours façon « Coaching Master » : gameplay flouté en fond, gros titres de section qui se rangent en pastille en haut, exemples de gameplay nets dans un cadre blanc avec arrêt sur image, cercles pointillés et flèches, cartes tactiques (tactical board) avec portraits de héros, flèches et texte manuscrit rouge, logo CM couronne en bas à gauche.",
+    "zones": [
+      {
+        "label": "Titre de section (pastille)",
+        "kind": "text",
+        "x": 30,
+        "y": 3,
+        "w": 40,
+        "h": 10
+      },
+      {
+        "label": "Cadre exemple / carte tactique",
+        "kind": "media",
+        "x": 16,
+        "y": 16,
+        "w": 68,
+        "h": 80
+      },
+      {
+        "label": "Logo CM",
+        "kind": "accent",
+        "x": 2,
+        "y": 72,
+        "w": 13,
+        "h": 23
+      },
+      {
+        "label": "Annotations (cercles, flèches, texte rouge)",
+        "kind": "character",
+        "x": 50,
+        "y": 20,
+        "w": 30,
+        "h": 30
+      }
+    ],
+    "rules": [
+      "Intro : gros logo CM au centre qui se range en bas à gauche ; outro : « ? » teasing du prochain cours puis gros logo.",
+      "Fond : la vidéo de gameplay floutée en continu (sans killcam, tableau des scores ni spectateur).",
+      "Pseudo du joueur TOUJOURS censuré (sous la barre de vie, fil des éliminations, chat).",
+      "Gros titre de section (Bebas, pastille sombre translucide) + bruitage titre, puis il se range en petite pastille en haut.",
+      "Listes = pastilles qui poppent une par une (pop).",
+      "Exemples : extrait net dans un cadre blanc, puis pause (icône ⏸) et annotations : cercle blanc pointillé, flèche blanche, mot manuscrit rouge contouré blanc.",
+      "Cartes tactiques (overwatch-tatical-board) : portraits ronds bleus = alliés, rouges = ennemis ; flèches qui se dessinent, croix rouge, texte Permanent Marker.",
+      "Flashs lumineux dorés sur les bords et étoiles jaunes aux transitions.",
+      "Audio : musique et bruitages extraits de la vidéo de référence, aux mêmes niveaux (voix −10,6 LUFS, musique ~28 LU dessous) ; mixage fait en Python puis limiteur.",
+      "Voix : retirer prises ratées/faux départs, ne resserrer qu'entre les phrases."
     ]
   },
   {
@@ -25,10 +119,38 @@
     "usage": "Cours, concepts, 60–90 s",
     "description": "Un monde 3D isométrique unique que la caméra parcourt en zoomant d'une zone à l'autre. Cartes de texte en haut et en bas, barre de progression du cours.",
     "zones": [
-      { "label": "Titre / définition", "kind": "text", "x": 6, "y": 7, "w": 88, "h": 20 },
-      { "label": "Scène 3D (caméra iso)", "kind": "media", "x": 0, "y": 28, "w": 100, "h": 50 },
-      { "label": "Carte explicative", "kind": "accent", "x": 6, "y": 79, "w": 88, "h": 12 },
-      { "label": "Progression", "kind": "text", "x": 6, "y": 95, "w": 88, "h": 1.5 }
+      {
+        "label": "Titre / définition",
+        "kind": "text",
+        "x": 6,
+        "y": 7,
+        "w": 88,
+        "h": 20
+      },
+      {
+        "label": "Scène 3D (caméra iso)",
+        "kind": "media",
+        "x": 0,
+        "y": 28,
+        "w": 100,
+        "h": 50
+      },
+      {
+        "label": "Carte explicative",
+        "kind": "accent",
+        "x": 6,
+        "y": 79,
+        "w": 88,
+        "h": 12
+      },
+      {
+        "label": "Progression",
+        "kind": "text",
+        "x": 6,
+        "y": 95,
+        "w": 88,
+        "h": 1.5
+      }
     ],
     "rules": [
       "Une seule île, plusieurs zones : chaque notion = un zoom caméra.",
@@ -43,12 +165,43 @@
     "usage": "Comparaisons avant / après",
     "description": "En haut la version IA, en bas la version originale, avec une étiquette sur chaque moitié pour que le spectateur compare d'un coup d'œil.",
     "zones": [
-      { "label": "Version IA", "kind": "media", "x": 0, "y": 0, "w": 100, "h": 49.5 },
-      { "label": "Version originale", "kind": "character", "x": 0, "y": 50.5, "w": 100, "h": 49.5 },
-      { "label": "Étiquette", "kind": "accent", "x": 6, "y": 4, "w": 30, "h": 5 },
-      { "label": "Étiquette", "kind": "accent", "x": 6, "y": 54, "w": 30, "h": 5 }
+      {
+        "label": "Version IA",
+        "kind": "media",
+        "x": 0,
+        "y": 0,
+        "w": 100,
+        "h": 49.5
+      },
+      {
+        "label": "Version originale",
+        "kind": "character",
+        "x": 0,
+        "y": 50.5,
+        "w": 100,
+        "h": 49.5
+      },
+      {
+        "label": "Étiquette",
+        "kind": "accent",
+        "x": 6,
+        "y": 4,
+        "w": 30,
+        "h": 5
+      },
+      {
+        "label": "Étiquette",
+        "kind": "accent",
+        "x": 6,
+        "y": 54,
+        "w": 30,
+        "h": 5
+      }
     ],
-    "rules": ["Les deux moitiés restent synchronisées.", "Étiquettes toujours visibles en haut à gauche de chaque moitié."]
+    "rules": [
+      "Les deux moitiés restent synchronisées.",
+      "Étiquettes toujours visibles en haut à gauche de chaque moitié."
+    ]
   },
   {
     "id": "facecam-bas",
@@ -57,10 +210,34 @@
     "usage": "Réactions, démonstrations",
     "description": "Je suis en bas de l'écran et je commente ce qui se passe en haut : captures, illustrations, zooms sur une zone.",
     "zones": [
-      { "label": "Illustration / partage d'écran", "kind": "media", "x": 0, "y": 0, "w": 100, "h": 58 },
-      { "label": "Titre de section", "kind": "accent", "x": 6, "y": 54, "w": 60, "h": 7 },
-      { "label": "Face cam", "kind": "character", "x": 0, "y": 60, "w": 100, "h": 40 }
+      {
+        "label": "Illustration / partage d'écran",
+        "kind": "media",
+        "x": 0,
+        "y": 0,
+        "w": 100,
+        "h": 58
+      },
+      {
+        "label": "Titre de section",
+        "kind": "accent",
+        "x": 6,
+        "y": 54,
+        "w": 60,
+        "h": 7
+      },
+      {
+        "label": "Face cam",
+        "kind": "character",
+        "x": 0,
+        "y": 60,
+        "w": 100,
+        "h": 40
+      }
     ],
-    "rules": ["Zoom sur la zone dont on parle (animation « Zoom sur zone »).", "Le titre de section chevauche la jonction des deux zones."]
+    "rules": [
+      "Zoom sur la zone dont on parle (animation « Zoom sur zone »).",
+      "Le titre de section chevauche la jonction des deux zones."
+    ]
   }
 ]
