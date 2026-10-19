@@ -165,7 +165,7 @@ function writeFeedback(p, items) {
   const open = items.filter((i) => i.status !== "fait"), done = items.filter((i) => i.status === "fait");
   const line = (i) => `- [${i.status === "fait" ? "x" : " "}] **${fmtT(i.time)}${i.end != null ? "–" + fmtT(i.end) : ""}** · ${i.category} · ${i.note}${i.render ? ` _(sur ${i.render})_` : ""}`;
   fs.writeFileSync(path.join(p.path, "FEEDBACK.md"),
-    `# Retours pour le monteur IA — ${p.title}\n\nÉcrit par EditingOS. Chaque ligne = un retour horodaté sur le rendu indiqué.\nTraiter les retours ouverts, puis les cocher dans EditingOS (ou passer \`status\` à \`fait\` dans editingos/feedback.json).\n\n## À faire (${open.length})\n\n${open.map(line).join("\n") || "_Rien._"}\n\n## Fait (${done.length})\n\n${done.map(line).join("\n") || "_Rien._"}\n`);
+    `# Retours pour le monteur IA — ${p.title}\n\nÉcrit par TV Cat Editing. Chaque ligne = un retour horodaté sur le rendu indiqué.\nTraiter les retours ouverts, puis les cocher dans TV Cat Editing (ou passer \`status\` à \`fait\` dans editingos/feedback.json).\n\n## À faire (${open.length})\n\n${open.map(line).join("\n") || "_Rien._"}\n\n## Fait (${done.length})\n\n${done.map(line).join("\n") || "_Rien._"}\n`);
 }
 
 // ---------- jobs (render / studio / timeline) ----------
@@ -308,6 +308,6 @@ const server = http.createServer(async (req, res) => {
 const { port } = config();
 server.listen(port, "127.0.0.1", () => {
   const list = scan();
-  console.log(`EditingOS → http://localhost:${port}  (${list.length} projet(s), scan ${lastScan.ms} ms)`);
+  console.log(`TV Cat Editing → http://localhost:${port}  (${list.length} projet(s), scan ${lastScan.ms} ms)`);
   if (!fs.existsSync(ACTIVITY)) logActivity("install", { projects: list.length });
 });

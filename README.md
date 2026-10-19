@@ -1,10 +1,10 @@
-# EditingOS — atelier de montage
+# TV Cat Editing — atelier de montage
 
 Plateforme locale qui pilote des projets vidéo HyperFrames montés par l'IA.
 
 ## Lancer
 
-Double-clic sur `Lancer-EditingOS.cmd`, ou :
+Double-clic sur `Lancer-TVCatEditing.cmd`, ou :
 
 ```
 node server.mjs

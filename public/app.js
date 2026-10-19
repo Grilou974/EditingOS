@@ -1,10 +1,10 @@
-// EditingOS front — vanilla, hash routed.
+// TV Cat Editing front — vanilla, hash routed.
 const $ = (s, el = document) => el.querySelector(s);
 const view = $("#view");
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
 // Vitrine (GitHub Pages) : pas de serveur, données figées dans api/*.json, retours gardés dans le navigateur.
 const STATIC = !!window.EOS_STATIC;
-const LOCAL_ONLY = "Disponible dans la version locale d'EditingOS (Lancer-EditingOS.cmd)";
+const LOCAL_ONLY = "Disponible dans la version locale de TV Cat Editing (Lancer-TVCatEditing.cmd)";
 async function staticApi(url, opts) {
   const m = (opts.method || "GET").toUpperCase();
   const fbKey = (id) => "fb:" + id;
@@ -169,7 +169,7 @@ async function pageProject(id, opts = {}) {
     const open = feedback.filter((f) => f.status !== "fait").length;
     w.innerHTML = `<div class="fbpanel">
       <h3>Retours au monteur IA</h3>
-      <p class="hint">Mets la vidéo en pause au bon moment, décris le problème. Chaque retour est écrit dans <code>FEEDBACK.md</code> du projet : demande ensuite à Claude « traite les retours d'EditingOS ».</p>
+      <p class="hint">Mets la vidéo en pause au bon moment, décris le problème. Chaque retour est écrit dans <code>FEEDBACK.md</code> du projet : demande ensuite à Claude « traite les retours de TV Cat Editing ».</p>
       <div class="fbform">
         <span class="tc"><input class="inp" id="t0" value="${tc(vid ? vid.currentTime : 0)}" title="Début (mm:ss.s)"/><button class="btn sm" id="now" title="Prendre le temps actuel de la vidéo">⏱</button></span>
         <span class="tc">→ <input class="inp" id="t1" placeholder="fin" title="Fin (optionnel)"/></span>
@@ -190,7 +190,7 @@ async function pageProject(id, opts = {}) {
       feedback = await api(`/api/projects/${p.id}/feedback`); paintFb(); paintMarkers(); toast("Retour envoyé au monteur");
     };
     $("#prompt").onclick = () => {
-      const txt = `Traite les retours EditingOS du projet « ${p.title} » : lis ${p.path}\\FEEDBACK.md, applique chaque retour ouvert dans la composition HyperFrames, re-rends la vidéo, puis passe les retours traités à « fait » dans editingos\\feedback.json.`;
+      const txt = `Traite les retours TV Cat Editing du projet « ${p.title} » : lis ${p.path}\\FEEDBACK.md, applique chaque retour ouvert dans la composition HyperFrames, re-rends la vidéo, puis passe les retours traités à « fait » dans editingos\\feedback.json.`;
       navigator.clipboard.writeText(txt).then(() => toast("Consigne copiée"), () => toast(txt));
     };
     w.querySelectorAll(".fbi .t").forEach((el) => (el.onclick = () => vid && ((vid.currentTime = +el.dataset.t), vid.pause())));
@@ -306,7 +306,7 @@ async function pageLibrary(tab) {
 
 // ---------- Activité ----------
 const EV = {
-  install: ["◆", "EditingOS installé", (e) => `${e.projects} projet(s) trouvé(s)`],
+  install: ["◆", "TV Cat Editing installé", (e) => `${e.projects} projet(s) trouvé(s)`],
   refresh: ["↻", "Actualisation", (e) => `${e.projects} projet(s) relevé(s) en ${e.ms} ms`],
   feedback: ["✎", "Retour envoyé au monteur", (e) => `${e.title} · ${tc(e.time)} · ${e.category} — ${e.note}`],
   feedback_done: ["✓", "Retour traité", (e) => `${e.title} — ${e.note}`],
@@ -337,5 +337,5 @@ function modal(title, fields, onOk) {
   $("[data-k]", m)?.focus();
 }
 
-if (STATIC) document.querySelector(".shell").insertAdjacentHTML("afterbegin", `<div style="padding:10px 26px;background:#1a1606;border-bottom:1px solid #5a4a12;color:#f5c518;font-size:13.5px;font-weight:600">Mode vitrine — interface en lecture, retours gardés dans ce navigateur. L'atelier complet (rendus, Studio, dossiers) tourne en local avec Lancer-EditingOS.cmd.</div>`);
+if (STATIC) document.querySelector(".top").insertAdjacentHTML("afterend", `<div class="banner">Mode vitrine — interface en lecture, retours gardés dans ce navigateur. L'atelier complet (rendus, Studio, dossiers) tourne en local avec Lancer-TVCatEditing.cmd.</div>`);
 load().then(route).catch((e) => (view.innerHTML = `<div class="emptystate"><h3>Serveur injoignable</h3>${esc(e.message)}</div>`));
