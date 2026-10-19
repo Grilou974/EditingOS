@@ -339,3 +339,43 @@ function modal(title, fields, onOk) {
 
 if (STATIC) document.querySelector(".top").insertAdjacentHTML("afterend", `<div class="banner">Mode vitrine — interface en lecture, retours gardés dans ce navigateur. L'atelier complet (rendus, Studio, dossiers) tourne en local avec Lancer-TVCatEditing.cmd.</div>`);
 load().then(route).catch((e) => (view.innerHTML = `<div class="emptystate"><h3>Serveur injoignable</h3>${esc(e.message)}</div>`));
+
+// Menus déroulants maison (même DA que le reste) : remplacent visuellement chaque <select class="inp">,
+// le vrai <select> reste dans la page et reçoit les événements input/change → aucune logique à changer.
+(() => {
+  const closeAll = (except) => document.querySelectorAll(".dd.open").forEach((d) => d !== except && d.classList.remove("open"));
+  const build = (sel) => {
+    if (sel.dataset.dd) return;
+    sel.dataset.dd = "1";
+    const dd = document.createElement("div");
+    dd.className = "dd";
+    if (sel.style.width) dd.style.width = sel.style.width;
+    sel.parentNode.insertBefore(dd, sel);
+    dd.appendChild(sel);
+    const btn = document.createElement("button");
+    btn.type = "button"; btn.className = "dd-btn";
+    const list = document.createElement("div");
+    list.className = "dd-list"; list.setAttribute("role", "listbox");
+    dd.append(btn, list);
+    const sync = () => {
+      const o = sel.options[sel.selectedIndex];
+      btn.innerHTML = `<span>${o ? o.textContent : ""}</span><i></i>`;
+      list.innerHTML = [...sel.options].map((op, i) => `<button type="button" role="option" class="dd-opt${i === sel.selectedIndex ? " on" : ""}" data-i="${i}">${op.textContent}</button>`).join("");
+    };
+    sync();
+    btn.onclick = (e) => { e.stopPropagation(); const open = !dd.classList.contains("open"); closeAll(dd); dd.classList.toggle("open", open); };
+    list.onclick = (e) => {
+      const b = e.target.closest(".dd-opt"); if (!b) return;
+      e.stopPropagation();
+      sel.selectedIndex = +b.dataset.i;
+      sync(); dd.classList.remove("open");
+      sel.dispatchEvent(new Event("input", { bubbles: true }));
+      sel.dispatchEvent(new Event("change", { bubbles: true }));
+    };
+  };
+  const scan = () => document.querySelectorAll("select.inp").forEach(build);
+  document.addEventListener("click", () => closeAll());
+  document.addEventListener("keydown", (e) => e.key === "Escape" && closeAll());
+  new MutationObserver(scan).observe(document.body, { childList: true, subtree: true });
+  scan();
+})();
