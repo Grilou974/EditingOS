@@ -48,10 +48,17 @@ const tc = (s) => `${String(Math.floor(s / 60)).padStart(2, "0")}:${(s % 60).toF
 const parseTc = (v) => { const m = String(v).trim().match(/^(?:(\d+):)?(\d+(?:[.,]\d+)?)$/); return m ? (+(m[1] || 0)) * 60 + parseFloat(m[2].replace(",", ".")) : null; };
 const media = (p, file) => `media/${p.id}/${file.split("/").map(encodeURIComponent).join("/")}`;
 const STATE = { rendu: "Rendu à jour", perime: "Rendu périmé", brouillon: "Brouillon" };
+const noteCls = (n) => (n >= 8 ? "top" : n >= 6.5 ? "mid" : "low");
+const noteTxt = (n) => n.toFixed(1).replace(".", ",");
+const chanOf = (name) => CHANNELS.find((c) => c.name === name) || { name, logo: "", color: "#9d96bd", desc: "" };
+const chanLogo = (c, cls = "clogo") => c.logo ? `<img class="${cls}" src="${c.logo}" alt="" />` : `<span class="${cls} mono" style="--c:${c.color}">${esc(c.name[0])}</span>`;
+const avg = (l) => { const n = l.filter((p) => p.score).map((p) => p.score.note); return n.length ? n.reduce((a, b) => a + b, 0) / n.length : null; };
 
 let data = { stats: null, projects: [] };
+let CHANNELS = [];
 async function load(refresh = false) {
   data = await api(refresh ? "/api/refresh" : "/api/overview", refresh ? { method: "POST" } : {});
+  if (!CHANNELS.length) CHANNELS = (await api("/api/library").catch(() => ({}))).channels || [];
   renderStats();
   return data;
 }
@@ -82,47 +89,78 @@ $("#refresh").onclick = async (e) => { e.target.disabled = true; await load(true
 
 // ---------- Projets ----------
 function pageProjects() {
-  const f = store.get("filters", { q: "", family: "", type: "", format: "", state: "", sort: "modified", stale: false, hideUtility: true });
+  const f = Object.assign({ q: "", channel: "", genre: "", format: "", state: "", sort: "modified", stale: false, hideUtility: true }, store.get("filters", {}));
   const opts = (key) => [...new Set(data.projects.map((p) => p[key]))].sort();
   const sel = (id, label, key, values, map = (v) => v) => `<select class="inp" id="${id}"><option value="">${label}</option>${values.map((v) => `<option value="${esc(v)}" ${f[key] === v ? "selected" : ""}>${esc(map(v))}</option>`).join("")}</select>`;
   view.innerHTML = `
     <div class="h1"><h1>Projets</h1><span class="cnt" id="cnt"></span></div>
     <p class="lead">Le système de fichiers fait foi. Relevé ${ago(data.stats.scan.at)} en ${data.stats.scan.ms} ms · <code title="${esc(data.stats.roots.join(" · "))}">${esc(data.stats.roots.map((r) => "…\\" + r.split(/[\\/]/).slice(-2).join("\\")).join(" · "))}</code></p>
+    <div class="chans" id="chans"></div>
     <div class="filters">
       <input class="inp search" id="q" placeholder="Chercher un nom ou un slug" value="${esc(f.q)}" />
-      ${sel("family", "Toutes les familles", "family", opts("family"))}
-      ${sel("type", "Tous les types", "type", opts("type"))}
+      <span id="genreWrap"></span>
       ${sel("format", "Tous les formats", "format", opts("format"))}
       ${sel("state", "Tous les états", "state", ["rendu", "perime", "brouillon"], (v) => STATE[v])}
-      <select class="inp" id="sort"><option value="modified">Modifié récemment</option><option value="created" ${f.sort === "created" ? "selected" : ""}>Créé récemment</option><option value="title" ${f.sort === "title" ? "selected" : ""}>Nom (A→Z)</option></select>
+      <select class="inp" id="sort"><option value="modified">Modifié récemment</option><option value="created" ${f.sort === "created" ? "selected" : ""}>Créé récemment</option><option value="title" ${f.sort === "title" ? "selected" : ""}>Nom (A→Z)</option><option value="note" ${f.sort === "note" ? "selected" : ""}>Meilleure note</option></select>
       <label class="check"><input type="checkbox" id="stale" ${f.stale ? "checked" : ""}/>Périmés seuls</label>
       <label class="check"><input type="checkbox" id="hideUtility" ${f.hideUtility ? "checked" : ""}/>Masquer l'utilitaire</label>
     </div>
     <div id="list"></div>`;
+  const vis = () => data.projects.filter((p) => !f.hideUtility || !p.utility);
+  const paintChans = () => {
+    const names = [...new Set([...CHANNELS.map((c) => c.name), ...vis().map((p) => p.channel)])].filter((n) => n !== "Autres" || vis().some((p) => p.channel === n));
+    const tab = (name, label, logo, n, a) => `<button class="chan${f.channel === name ? " on" : ""}" data-c="${esc(name)}">${logo}<span class="cn"><b>${esc(label)}</b><small>${n} vidéo${n > 1 ? "s" : ""}${a != null ? ` · moyenne ${noteTxt(a)}/10` : ""}</small></span></button>`;
+    $("#chans").innerHTML = tab("", "Toutes les chaînes", `<span class="clogo all">★</span>`, vis().length, avg(vis())) +
+      names.map((n) => { const l = vis().filter((p) => p.channel === n); return tab(n, n, chanLogo(chanOf(n)), l.length, avg(l)); }).join("");
+    $("#chans").querySelectorAll(".chan").forEach((b) => (b.onclick = () => { f.channel = b.dataset.c; f.genre = ""; paintChans(); paintGenre(); paint(); }));
+  };
+  const paintGenre = () => {
+    const g = [...new Set(vis().filter((p) => !f.channel || p.channel === f.channel).map((p) => p.genre))].sort((a, b) => a.localeCompare(b, "fr"));
+    if (f.genre && !g.includes(f.genre)) f.genre = "";
+    $("#genreWrap").innerHTML = sel("genre", "Tous les genres", "genre", g);
+    $("#genre").oninput = (e) => { f.genre = e.target.value; paint(); };
+  };
   const paint = () => {
     let list = data.projects.filter((p) =>
-      (!f.q || (p.title + " " + p.slug).toLowerCase().includes(f.q.toLowerCase())) && (!f.family || p.family === f.family) && (!f.type || p.type === f.type) &&
+      (!f.q || (p.title + " " + p.slug).toLowerCase().includes(f.q.toLowerCase())) && (!f.channel || p.channel === f.channel) && (!f.genre || p.genre === f.genre) &&
       (!f.format || p.format === f.format) && (!f.state || p.state === f.state) && (!f.stale || p.state === "perime") && (!f.hideUtility || !p.utility));
-    list.sort((a, b) => (f.sort === "title" ? a.title.localeCompare(b.title, "fr") : b[f.sort] - a[f.sort]));
+    list.sort((a, b) => (f.sort === "title" ? a.title.localeCompare(b.title, "fr") : f.sort === "note" ? (b.score?.note ?? -1) - (a.score?.note ?? -1) : b[f.sort] - a[f.sort]));
     $("#cnt").textContent = `${list.length} / ${data.projects.filter((p) => !p.utility || !f.hideUtility).length}`;
     $("#list").innerHTML = !data.projects.length
       ? `<div class="emptystate"><h3>Aucun projet pour l'instant</h3>Les projets HyperFrames créés dans <code>${esc(data.stats.roots[0])}</code> apparaîtront ici automatiquement.</div>`
       : !list.length ? `<div class="emptystate"><h3>Rien ne correspond</h3>Modifie les filtres.</div>`
-      : `<div class="grid">${list.map(card).join("")}</div>`;
+      : f.channel ? groupsByGenre(list)
+      : [...new Set(list.map((p) => p.channel))].sort((a, b) => CHANNELS.findIndex((c) => c.name === a) - CHANNELS.findIndex((c) => c.name === b)).map((n) => {
+          const l = list.filter((p) => p.channel === n), c = chanOf(n), a = avg(l);
+          return `<section class="csec" style="--c:${c.color}"><div class="csec-hd">${chanLogo(c, "clogo lg")}<div><h2>${esc(n)}</h2><p>${esc(c.desc || "")}</p></div><span class="csec-n">${l.length} vidéo${l.length > 1 ? "s" : ""}${a != null ? ` · <b>${noteTxt(a)}</b>/10` : ""}</span></div><div class="grid">${l.map(card).join("")}</div></section>`;
+        }).join("");
+    if (f.channel && !list.length && !f.q && !f.genre) $("#list").innerHTML = `<div class="emptystate"><h3>${esc(f.channel)} — pas encore de vidéo</h3>${esc(chanOf(f.channel).desc)}<br>Les projets dont <code>editingos.json</code> contient <code>"channel": "${esc(f.channel)}"</code> apparaîtront ici.</div>`;
     document.querySelectorAll(".card").forEach((c) => (c.onclick = () => (location.hash = "#/p/" + c.dataset.id)));
     store.set("filters", f);
   };
-  ["q", "family", "type", "format", "state", "sort"].forEach((k) => ($("#" + k).oninput = (e) => { f[k] = e.target.value; paint(); }));
-  ["stale", "hideUtility"].forEach((k) => ($("#" + k).onchange = (e) => { f[k] = e.target.checked; paint(); }));
+  ["q", "format", "state", "sort"].forEach((k) => ($("#" + k).oninput = (e) => { f[k] = e.target.value; paint(); }));
+  paintChans(); paintGenre();
+  ["stale", "hideUtility"].forEach((k) => ($("#" + k).onchange = (e) => { f[k] = e.target.checked; paintChans(); paint(); }));
   paint();
+}
+function groupsByGenre(list) {
+  return [...new Set(list.map((p) => p.genre))].sort((a, b) => a.localeCompare(b, "fr")).map((g) => {
+    const l = list.filter((p) => p.genre === g), a = avg(l);
+    return `<section class="gsec"><div class="gsec-hd"><h3>${esc(g)}</h3><span>${l.length}${a != null ? ` · ${noteTxt(a)}/10` : ""}</span></div><div class="grid">${l.map(card).join("")}</div></section>`;
+  }).join("");
+}
+function scoreBadge(p) {
+  if (p.score) return `<div class="note ${noteCls(p.score.note)}" title="Note automatique"><b>${noteTxt(p.score.note)}</b><small>/10</small></div>`;
+  if (p.scorePending) return `<div class="note wait" title="Analyse en cours"><small>analyse…</small></div>`;
+  return "";
 }
 function card(p) {
   const r = p.renders[0];
   const src = r && media(p, r.file) + "#t=2.5";
   return `<article class="card" data-id="${p.id}">
     <div class="hd"><div><h3>${esc(p.title)}</h3><div class="date">${date(p.modified)}</div></div>
-      <div class="tags"><span class="pill fam">${esc(p.family)}</span><span class="pill">${esc(p.type)}</span></div></div>
-    <div class="thumb">${r ? `<video class="blur" src="${src}" muted preload="metadata"></video><video class="front" src="${src}" muted preload="metadata"></video>` : `<div class="empty">Pas encore de rendu</div>`}
+      <div class="tags"><span class="pill fam">${esc(p.genre)}</span></div></div>
+    <div class="thumb">${scoreBadge(p)}${r ? `<video class="blur" src="${src}" muted preload="metadata"></video><video class="front" src="${src}" muted preload="metadata"></video>` : `<div class="empty">Pas encore de rendu</div>`}
       <div class="meta"><span>${esc(p.format)}</span><span class="${p.state === "perime" ? "r" : ""}">${STATE[p.state]}</span>${p.renders.length > 1 ? `<span>${p.renders.length} vidéos</span>` : ""}${p.feedbackOpen ? `<span class="y">${p.feedbackOpen} retour${p.feedbackOpen > 1 ? "s" : ""}</span>` : ""}</div></div>
   </article>`;
 }
@@ -140,7 +178,7 @@ async function pageProject(id, opts = {}) {
       <div class="player">${current ? `<video id="vid" controls preload="metadata" src="${media(p, current.file)}"></video><div class="markers" id="markers"></div>` : `<div class="thumb"><div class="empty">Pas encore de rendu — lance « Rendre la vidéo »</div></div>`}</div>
       <div class="side">
         <h2>${esc(p.title)}</h2>
-        <div class="row"><span class="pill fam">${esc(p.family)}</span><span class="pill">${esc(p.type)}</span><span class="pill">${esc(p.format)}</span><span class="pill st-${p.state}">${STATE[p.state]}</span>${p.tags.map((t) => `<span class="pill">${esc(t)}</span>`).join("")}</div>
+        <div class="row"><span class="pill chanpill" style="--c:${chanOf(p.channel).color}">${chanLogo(chanOf(p.channel), "clogo xs")}${esc(p.channel)}</span><span class="pill fam">${esc(p.genre)}</span><span class="pill">${esc(p.type)}</span><span class="pill">${esc(p.format)}</span><span class="pill st-${p.state}">${STATE[p.state]}</span>${p.tags.map((t) => `<span class="pill">${esc(t)}</span>`).join("")}</div>
         ${p.message ? `<p class="msg">${esc(p.message)}</p>` : ""}
         <div class="actions">
           <button class="btn primary" id="fbToggle">✎ Apporter des modifications</button>
@@ -148,11 +186,15 @@ async function pageProject(id, opts = {}) {
           <a class="btn" href="#/studio/${p.id}">Ouvrir dans le Studio</a>
         </div>
         <div id="fbwrap"></div>
+        ${p.score ? `<div class="box scorebox"><h4>Note automatique</h4><div class="sc-top"><div class="note big ${noteCls(p.score.note)}"><b>${noteTxt(p.score.note)}</b><small>/10</small></div><p>Calculée par TV Cat Editing sur <code>${esc(p.score.file.split("/").pop())}</code> : format, durée, volume, rythme des plans, blancs, accroche, retours. Recalculée à chaque nouveau rendu.</p></div>
+          <div class="crit">${p.score.criteria.map((c) => `<div class="cr"><div class="cr-l"><b>${esc(c.label)}</b><span>${esc(c.detail)}</span>${c.tip ? `<em>→ ${esc(c.tip)}</em>` : ""}</div><div class="cr-bar"><i style="width:${(c.pts / c.max) * 100}%"></i></div><div class="cr-v">${String(c.pts).replace(".", ",")}<small>/${c.max}</small></div></div>`).join("")}</div></div>`
+          : p.scorePending ? `<div class="box scorebox"><h4>Note automatique</h4><p class="lead" style="margin:0">Analyse de la vidéo en cours… actualise dans quelques secondes.</p></div>` : ""}
+        ${p.avis ? `<div class="box"><h4>Avis du monteur IA</h4><p class="msg" style="margin:0">${esc(p.avis)}</p></div>` : ""}
         <div class="box"><h4>Fichier sur l'ordinateur</h4>
           <div class="path"><code id="fpath">${esc(current ? p.path + "\\" + current.file.replace(/\//g, "\\") : p.path)}</code><button class="btn sm" id="copy">Copier</button><button class="btn sm" id="reveal">Ouvrir le dossier</button></div></div>
         ${p.renders.length ? `<div class="box"><h4>Vidéos du projet (${p.renders.length})</h4><div class="versions">${p.renders.map((r, i) => `<button data-i="${i}" class="${i === 0 ? "on" : ""}"><b>${esc(r.name)}</b><span>${size(r.size)} · ${date(r.mtime)}</span></button>`).join("")}</div></div>` : ""}
         <div class="box"><h4>Détails</h4><div class="lead" style="margin:0">Créé le ${date(p.created)} · modifié le ${date(p.modified)}${p.workflow ? ` · workflow <code>${esc(p.workflow)}</code>` : ""}${p.length ? ` · ${esc(p.length)}` : ""}</div>
-          <div class="actions" style="margin-top:12px"><button class="btn sm" id="editMeta">Modifier titre / famille / type</button></div></div>
+          <div class="actions" style="margin-top:12px"><button class="btn sm" id="editMeta">Modifier titre / chaîne / genre</button></div></div>
       </div>
     </div>`;
   const vid = $("#vid");
@@ -213,7 +255,7 @@ async function pageProject(id, opts = {}) {
     view.querySelectorAll(".versions button").forEach((x) => x.classList.toggle("on", x === b));
   }));
   $("#render").onclick = async (e) => { e.target.disabled = true; const job = await api(`/api/projects/${p.id}/render`, { method: "POST" }); toast("Rendu lancé — suivi dans le Studio"); location.hash = `#/studio/${p.id}?job=${job.id}`; };
-  $("#editMeta").onclick = () => modal("Projet", [["title", "Titre", p.title], ["family", "Famille (ex. Politique, Ads, Éducation)", p.family], ["type", "Type (ex. Short, Explainer, talking-head)", p.type], ["tags", "Tags (séparés par des virgules)", p.tags.join(", ")]], async (v) => {
+  $("#editMeta").onclick = () => modal("Projet", [["title", "Titre", p.title], ["channel", "Chaîne (TV Cat, Coaching Master, Seleckt…)", p.channel], ["genre", "Genre (ex. Institutions, Cours par rôle)", p.genre], ["type", "Type / style", p.type], ["tags", "Tags (séparés par des virgules)", p.tags.join(", ")]], async (v) => {
     v.tags = v.tags.split(",").map((s) => s.trim()).filter(Boolean);
     await api(`/api/projects/${p.id}/meta`, { method: "POST", body: v }); await load(); pageProject(id, { fbOpen });
   });

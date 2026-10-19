@@ -1,0 +1,30 @@
+[
+  {
+    "id": "tv-cat",
+    "name": "TV Cat",
+    "logo": "img/tvcat-logo.png",
+    "color": "#ff5d8f",
+    "desc": "Shorts actu & politique avec le chat 2D (TikTok, 9:16)."
+  },
+  {
+    "id": "coaching-master",
+    "name": "Coaching Master",
+    "logo": "img/cm-logo.png",
+    "color": "#d4a43a",
+    "desc": "Cours Overwatch en format long (YouTube, 16:9)."
+  },
+  {
+    "id": "seleckt",
+    "name": "Seleckt",
+    "logo": "",
+    "color": "#52e0a4",
+    "desc": "Les vidéos de Seleckt — bientôt."
+  },
+  {
+    "id": "autres",
+    "name": "Autres",
+    "logo": "",
+    "color": "#9d96bd",
+    "desc": "Tests et projets hors chaîne."
+  }
+]

@@ -25,3 +25,9 @@ puis ouvrir http://localhost:4321. Aucune dépendance à installer (Node 18+).
 Avant de monter une vidéo : lire `library/formats.json`, `library/charte.json` (et les fichiers HTML qu'il cite), `library/references.json`.
 Pour traiter des retours : lire `FEEDBACK.md` du projet, appliquer, re-rendre, passer les retours à `"status": "fait"` dans `editingos/feedback.json`.
 Métadonnées d'un projet (titre, famille, type, tags, `utility`) : `editingos.json` à la racine du projet.
+
+## Chaînes, genres et note automatique
+
+- **Chaînes** : `library/channels.json` (TV Cat, Coaching Master, Seleckt…). Chaque projet indique la sienne dans `editingos.json` → `"channel": "TV Cat"` (sinon déduite du dossier : `montages/` → TV Cat, `montages-ow/` → Coaching Master, `seleckt/` → Seleckt). La page Projets les range par chaîne, puis par **genre** (`"genre"` dans `editingos.json`).
+- **Note automatique /10** : calculée par `score.mjs` sur le dernier rendu, avec ffmpeg — format, durée (selon la chaîne), volume (−14 LUFS), rythme visuel, blancs, accroche, retours ouverts, rendu à jour. Mise en cache dans `editingos/score.json`, recalculée à chaque nouveau rendu.
+- **Avis du monteur IA** : texte libre dans `"avis"` de `editingos.json`, affiché sur la fiche projet.

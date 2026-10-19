@@ -276,3 +276,54 @@ select.inp { appearance: none; padding-right: 38px; background: var(--card) url(
 .inp:focus { box-shadow: 0 0 0 4px #7c5cff55; }
 ::selection { background: #ff5d8f; color: var(--ink); }
 .lcard iframe { background: #1a1625; }
+
+/* ---- chaînes ---- */
+.chans { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+.chan { display: flex; align-items: center; gap: 12px; padding: 8px 20px 8px 8px; border-radius: 999px; border: 2px solid var(--line); background: var(--card); color: var(--text); cursor: pointer; text-align: left; transition: transform 0.12s, box-shadow 0.12s, border-color 0.12s; }
+.chan:hover { border-color: var(--line2); }
+.chan.on { border-color: var(--line2); box-shadow: var(--shadow); transform: translate(-2px, -2px); background: var(--panel2); }
+.chan .cn { display: flex; flex-direction: column; line-height: 1.15; }
+.chan .cn b { font: 600 17px var(--serif); }
+.chan .cn small { color: var(--muted); font-size: 12.5px; font-weight: 600; }
+.clogo { width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center; flex: 0 0 auto; object-fit: cover; }
+.clogo.mono { background: color-mix(in srgb, var(--c) 22%, transparent); border: 2px solid var(--c); color: var(--c); font: 700 18px var(--serif); }
+.clogo.all { background: var(--violet); color: #fff; font-size: 18px; }
+.clogo.lg { width: 58px; height: 58px; font-size: 24px; }
+.clogo.xs { width: 18px; height: 18px; font-size: 10px; border-width: 1.5px; }
+.chanpill { border-color: var(--c); color: var(--text); padding-left: 4px; }
+.csec { margin-top: 38px; }
+.csec-hd { display: flex; align-items: center; gap: 16px; padding-bottom: 14px; border-bottom: 2px solid var(--c); }
+.csec-hd h2 { font: 300 34px/1 var(--serif); letter-spacing: 0.01em; }
+.csec-hd p { color: var(--muted); font-size: 14px; margin-top: 4px; }
+.csec-n { margin-left: auto; color: var(--muted); font-weight: 700; white-space: nowrap; }
+.csec-n b { color: var(--text); font: 600 20px var(--serif); }
+.csec .grid { margin-top: 20px; }
+.gsec { margin-top: 30px; }
+.gsec-hd { display: flex; align-items: baseline; gap: 12px; }
+.gsec-hd h3 { font: 400 24px var(--serif); }
+.gsec-hd span { color: var(--muted); font-weight: 700; font-size: 13.5px; }
+.gsec .grid { margin-top: 14px; }
+
+/* ---- notes ---- */
+.note { position: absolute; z-index: 2; top: 10px; right: 10px; display: flex; align-items: baseline; gap: 1px; padding: 5px 11px 4px; border-radius: 999px; border: 2px solid var(--line2); background: var(--card); box-shadow: 2px 3px 0 0 var(--violet); }
+.note b { font: 600 20px/1 var(--serif); }
+.note small { font-size: 11px; font-weight: 700; color: var(--muted); }
+.note.top { background: #52e0a4; } .note.top b, .note.top small { color: var(--ink); }
+.note.mid { background: #ff5d8f; } .note.mid b, .note.mid small { color: var(--ink); }
+.note.low { background: #3a1626; border-color: #ff5470; } .note.low b { color: #ff8aa0; }
+.note.wait { background: var(--panel2); }
+.note.big { position: static; padding: 10px 18px 8px; box-shadow: var(--shadow); }
+.note.big b { font-size: 40px; }
+.note.big small { font-size: 15px; }
+.scorebox .sc-top { display: flex; gap: 18px; align-items: center; }
+.scorebox .sc-top p { color: var(--muted); font-size: 13px; }
+.crit { margin-top: 16px; display: grid; gap: 10px; }
+.cr { display: grid; grid-template-columns: 1fr 120px 54px; gap: 12px; align-items: center; }
+.cr-l b { display: block; font-size: 14px; }
+.cr-l span { display: block; font-size: 12.5px; color: var(--muted); }
+.cr-l em { display: block; font-style: normal; font-size: 12.5px; color: #ff8fb1; font-weight: 600; }
+.cr-bar { height: 10px; border-radius: 999px; background: var(--panel2); overflow: hidden; }
+.cr-bar i { display: block; height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--violet), #ff5d8f); }
+.cr-v { text-align: right; font: 600 16px var(--serif); }
+.cr-v small { color: var(--muted); font-size: 11px; }
+@media (max-width: 700px) { .cr { grid-template-columns: 1fr 70px 44px; } .csec-hd { flex-wrap: wrap; } }

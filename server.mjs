@@ -7,6 +7,7 @@ import path from "node:path";
 import crypto from "node:crypto";
 import { spawn } from "node:child_process";
 import { fileURLToPath } from "node:url";
+import { cachedScore, queueScore } from "./score.mjs";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const CONFIG_FILE = path.join(HERE, "config.json");
@@ -128,6 +129,9 @@ function readProject(dir) {
     id: idOf(dir), slug, path: dir,
     title: eos.title || meta.name && meta.name !== slug && meta.name || slug.replace(/-/g, " ").replace(/^./, (c) => c.toUpperCase()),
     family: eos.family || "Sans famille",
+    channel: eos.channel || channelOf(dir, eos),
+    genre: eos.genre || eos.family || "Sans genre",
+    avis: eos.avis || null,
     type: eos.type || TYPE_LABEL[brief.workflow] || "Vidéo",
     tags: eos.tags || [],
     utility: !!eos.utility,
@@ -138,10 +142,29 @@ function readProject(dir) {
     feedbackOpen: fb.filter((f) => f.status !== "fait").length, feedbackTotal: fb.length,
   };
 }
+// Chaîne : champ « channel » de editingos.json, sinon déduite du dossier / du type
+function channelOf(dir, eos) {
+  const d = dir.split(path.sep).join("/").toLowerCase() + "/";
+  if (d.includes("/montages-ow/") || /coaching master|ow coaching/i.test(eos.type || "")) return "Coaching Master";
+  if (/tv cat/i.test(eos.type || "") || d.includes("/montages/")) return "TV Cat";
+  if (d.includes("/seleckt/")) return "Seleckt";
+  return "Autres";
+}
+function attachScores(list) {
+  for (const p of list) {
+    p.score = cachedScore(p);
+    if (!p.score && p.renders[0]) {
+      p.scorePending = true;
+      queueScore(p, childEnv(), (q) => { const s = cachedScore(readProject(q.path)); if (s) logActivity("score", { project: q.id, title: q.title, note: s.note }); });
+    }
+  }
+  return list;
+}
 function scan() {
   const t0 = performance.now();
   const next = new Map();
   for (const root of config().roots) for (const dir of findProjects(root)) { const p = readProject(dir); next.set(p.id, p); }
+  attachScores([...next.values()]);
   index = next;
   lastScan = { at: new Date().toISOString(), ms: Math.round(performance.now() - t0) };
   return [...index.values()];
@@ -240,7 +263,7 @@ const server = http.createServer(async (req, res) => {
           logActivity("library_add", { kind: id, name: item.name });
           return send(res, 200, item);
         }
-        return send(res, 200, { formats: readJSON(path.join(LIB, "formats.json"), []), charte: readJSON(path.join(LIB, "charte.json"), []), references: readJSON(path.join(LIB, "references.json"), []) });
+        return send(res, 200, { formats: readJSON(path.join(LIB, "formats.json"), []), charte: readJSON(path.join(LIB, "charte.json"), []), references: readJSON(path.join(LIB, "references.json"), []), channels: readJSON(path.join(LIB, "channels.json"), []) });
       }
       if (a === "tidy" && req.method === "POST") {
         let moved = 0, bytes = 0;
