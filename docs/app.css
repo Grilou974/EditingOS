@@ -36,7 +36,8 @@ code { font-family: var(--mono); font-size: 0.86em; }
 .top { display: flex; align-items: center; gap: 22px; padding: 14px 18px 14px 22px; border: 2px solid var(--text); border-radius: 999px; box-shadow: var(--shadow); background: #fff; position: sticky; top: 14px; z-index: 10; }
 .brand { display: flex; align-items: center; gap: 12px; margin-right: auto; }
 .brand .dot { width: 36px; height: 36px; border-radius: 50%; background: var(--lime); border: 2px solid var(--text); display: grid; place-items: center; font-size: 18px; }
-.brand .dot::after { content: "🐈‍⬛"; }
+.brand .logo { width: 46px; height: 46px; display: block; transition: transform 0.2s; }
+.brand:hover .logo { transform: rotate(-8deg) scale(1.06); }
 .brand b { font: 600 22px/1 var(--serif); color: var(--text); letter-spacing: 0.02em; white-space: nowrap; }
 .brand b i { font-style: normal; background: var(--lime); padding: 0 6px; border-radius: 8px; }
 .brand .tag { color: var(--muted); font-size: 14px; white-space: nowrap; }

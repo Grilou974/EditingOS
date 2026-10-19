@@ -41,6 +41,7 @@ write("api/library.json", await get("/api/library"));
 write("api/activity.json", [{ at: new Date().toISOString(), type: "install", projects: overview.projects.length }]);
 fs.cpSync(path.join(HERE, "library"), path.join(OUT, "library"), { recursive: true, filter: (f) => !f.endsWith(".py") });
 for (const f of ["app.css", "app.js"]) fs.copyFileSync(path.join(HERE, "public", f), path.join(OUT, f));
+fs.cpSync(path.join(HERE, "public", "img"), path.join(OUT, "img"), { recursive: true });
 write("index.html", fs.readFileSync(path.join(HERE, "public", "index.html"), "utf8").replace("<script src=\"app.js\">", "<script>window.EOS_STATIC = true;</script>\n    <script src=\"app.js\">"));
 write(".nojekyll", "");
 console.log(`docs/ prêt — ${overview.projects.length} projet(s)`);
