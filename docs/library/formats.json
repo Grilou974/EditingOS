@@ -59,6 +59,60 @@
     ]
   },
   {
+    "id": "tvcat-illustre",
+    "name": "TV cat — illustré (sans sous-titres)",
+    "ratio": "9:16",
+    "style": "TV cat",
+    "usage": "Actualité & politique, TikTok, 60–80 s — validé sur « Mélenchon antisémite ? » (20/10/2026)",
+    "description": "Variante de la DA TV cat : fond vidéo complètement flouté, AUCUN sous-titre, une illustration sur presque chaque phrase (cadres photo, fiches, graphiques animés, Lotties), le chat reste tel quel en bas à gauche et s'efface quand une grande image prend le centre. Une seule scène 3D isométrique par vidéo au maximum.",
+    "zones": [
+      {
+        "label": "Titre (blanc, contour noir)",
+        "kind": "text",
+        "x": 11,
+        "y": 21,
+        "w": 78,
+        "h": 7
+      },
+      {
+        "label": "Illustrations / cadres / graphiques",
+        "kind": "accent",
+        "x": 11,
+        "y": 12,
+        "w": 74,
+        "h": 38
+      },
+      {
+        "label": "Grand cadre centré (chat masqué)",
+        "kind": "media",
+        "x": 17,
+        "y": 17,
+        "w": 66,
+        "h": 50
+      },
+      {
+        "label": "Chat — expressions calmes",
+        "kind": "character",
+        "x": 0,
+        "y": 50,
+        "w": 67,
+        "h": 50
+      }
+    ],
+    "rules": [
+      "Fond : vidéo calme (plateaux, institutions) floutée très fort (BLUR 80) ; jamais d'images violentes.",
+      "Pas de sous-titres (NO_CAPS) : chaque propos est illustré à côté, au-dessus ou à la place du chat — jamais par-dessus lui.",
+      "Personnalités, logos, lieux : cadre blanc + nom, en GRAND au centre (≈700 px), le fond flou reste visible autour, le chat s'efface. Jamais de plein écran.",
+      "Tampons rouges géants (« NIE », « REJETTE », « ANTISÉMITE ? ») qui débordent du cadre sur le visage.",
+      "Mèmes (ex. Patrick) : grande image centrée sans cadre, texte style mème, bruitage drôle (klaxon, boing).",
+      "Objets détournés : UN seul vrai produit détouré (rembg), ex. un pot de yaourt nature.",
+      "Variété : fiches propres (lignes qui apparaissent une à une), camemberts / barres / courbes animés, Lotties (montages/_lotties), au plus UNE scène 3D isométrique.",
+      "Aucun texte ne doit en chevaucher un autre ; zone sûre TikTok (120 px côtés, 170 px à droite).",
+      "Beaucoup de soundboard varié (plop, coup, boing, griffonnage, whoosh, scintillement, buzzer) ; dings rares ; prout uniquement si demandé.",
+      "Intro « Bon » (gros plan c27 le temps du mot, whoosh fort + bass hit), voix resserrée en fin de phrase seulement, CTA chat étoilé."
+    ]
+  },
+  {
     "id": "ow-coaching-master-long",
     "name": "OW coaching master — format long",
     "ratio": "16:9",
