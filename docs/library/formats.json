@@ -1,5 +1,58 @@
 [
   {
+    "id": "tvcat-schemas",
+    "name": "TV cat — schémas (DA de référence)",
+    "ratio": "9:16",
+    "style": "TV cat",
+    "usage": "Actualité & politique, TikTok, 50–80 s — validée sur « Députés payés à rien faire ? » (21/10/2026), la préférée",
+    "description": "DA principale TV cat : fond violet nuit à trame de points, palette du chat (rose #ff5d8f, violet #7c5cff, encre #22164f), police ronde Fredoka, étiquettes « autocollants » roses à contour blanc. En-tête fixe : badge « Le chat t'explique » avec la tête du chat, titre sur une ligne avec la fin surlignée en rose, barre de progression à 3 pastilles qui se remplit. Explications en schémas plats propres et en vrais petits clips libres de droits, tout centré au milieu de l'écran ; pas de sous-titres.",
+    "zones": [
+      {
+        "label": "En-tête : badge chat + titre + progression",
+        "kind": "text",
+        "x": 10,
+        "y": 20,
+        "w": 80,
+        "h": 13
+      },
+      {
+        "label": "Schéma / clip centré (chat masqué)",
+        "kind": "media",
+        "x": 14,
+        "y": 35,
+        "w": 72,
+        "h": 40
+      },
+      {
+        "label": "Grand texte au-dessus du chat",
+        "kind": "accent",
+        "x": 12,
+        "y": 35,
+        "w": 76,
+        "h": 13
+      },
+      {
+        "label": "Chat — expressions calmes",
+        "kind": "character",
+        "x": 0,
+        "y": 50,
+        "w": 67,
+        "h": 50
+      }
+    ],
+    "rules": [
+      "Rien d'important au-dessus de y ≈ 380 px ; tout est grand et centré au milieu de l'écran.",
+      "En-tête fixe dès le début (pas de titre classique) : badge « Le chat t'explique », titre une ligne (fin en rose surligné), progression 3 étapes qui s'allument au fil des parties.",
+      "Explications : schémas plats (cartes blanches à bandeau violet : fiche de paie, carnet, montant qui compte ; jauge lilas→rose ; nuages de points), et vrais petits clips libres de droits (Pixabay) dans des cadres blancs arrondis légèrement penchés, avec une étiquette rose au-dessus.",
+      "Étiquettes = autocollants roses, contour blanc, légère rotation ; sous-étiquettes violettes ; ligne « source : … » discrète en italique.",
+      "Tampons roses (« SANCTION », « PAS FORCÉMENT », « COLLÉ ! ») qui ne recouvrent jamais un texte.",
+      "Le chat reste présent régulièrement (phrases-chocs, réactions) avec un léger halo rose ; il s'efface pendant les schémas et les clips.",
+      "Pas de 3D, peu ou pas de Lotties ; aucun texte ne chevauche un autre.",
+      "Bruitages variés (rotation automatique des familles de sons), « Bon » d'intro inchangé, CTA chat étoilé.",
+      "S'inspirer d'une référence = reprendre la structure, jamais sa typo ni ses couleurs."
+    ]
+  },
+  {
     "id": "short-politique-chat",
     "name": "TV cat — short actu (chat 2D)",
     "ratio": "9:16",
@@ -41,6 +94,7 @@
       }
     ],
     "rules": [
+      "Placement : rien d'important au-dessus de y ≈ 380 px (l'interface TikTok le recouvre) ; images, textes, Lotties et schémas plus bas, centrés vers le milieu de l'écran.",
       "Intro « Bon » : gros plan éclair du chat c27 le temps du mot seulement (~0,5 s, effet subliminal), PAS de sous-titre sur « Bon », presque aucun blanc après (serrer_bon.py), puis tout de suite le chat en petit ; sons : whoosh grave (banque de sons) + bass hit + court miaou énervé.",
       "Chat immobile en parlant ; il bouge seulement en gros plan ou sur les images énervées ; expressions homogènes avec l'humeur du sujet, changement ~toutes les 1 s.",
       "Gros plans = déclic d'appareil photo (Mixkit 1133). Aucun whoosh.",
@@ -100,6 +154,7 @@
       }
     ],
     "rules": [
+      "Placement : rien d'important au-dessus de y ≈ 380 px (l'interface TikTok le recouvre) ; images, textes, Lotties et schémas plus bas, centrés vers le milieu de l'écran.",
       "Fond : vidéo calme (plateaux, institutions) floutée très fort (BLUR 80) ; jamais d'images violentes.",
       "Pas de sous-titres (NO_CAPS) : chaque propos est illustré à côté, au-dessus ou à la place du chat — jamais par-dessus lui.",
       "Personnalités, logos, lieux : cadre blanc + nom, en GRAND au centre (≈700 px), le fond flou reste visible autour, le chat s'efface. Jamais de plein écran.",
