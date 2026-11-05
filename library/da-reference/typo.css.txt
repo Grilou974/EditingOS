@@ -1,0 +1,41 @@
+      /* style « miniature YouTube » coloré (05/11) : Lilita One + contour noir + ombre BD ; bandeaux penchés au feutre (Permanent Marker) */
+      @font-face {{ font-family: "Lilita"; src: url("assets/fonts/lilita-one.woff2") format("woff2"); }}
+      @font-face {{ font-family: "Marker"; src: url("assets/fonts/permanent-marker.woff2") format("woff2"); }}
+      #root {{ font-family: "Lilita", sans-serif; --n: #15121f; }}
+      .titre, .ctat {{ font-family: "Lilita"; font-weight: 400; letter-spacing: .01em; }}
+      .titre {{ font-size: 68px; -webkit-text-stroke: 10px var(--n); paint-order: stroke fill; text-shadow: 5px 7px 0 var(--n); }}
+      .ctat {{ font-size: 66px; color: #ffd93b; }}
+      .lab {{ padding: 0; background: none; box-shadow: none; color: #fff; font-weight: 400; text-transform: uppercase; letter-spacing: .01em; -webkit-text-stroke: 9px var(--n); paint-order: stroke fill; text-shadow: 4px 6px 0 var(--n); }}
+      .lab i {{ color: #ffd93b; }}
+      .lab.rouge {{ padding: 10px 26px; border-radius: 10px; background: #e5242b; border: 6px solid var(--n); box-shadow: 7px 8px 0 var(--n); -webkit-text-stroke: 0; text-shadow: none; transform: rotate(-2deg); }}
+      .lab.rouge i {{ color: #ffd93b; }}
+      .lab.sombre {{ padding: 6px 22px; border-radius: 6px; background: #fff; color: var(--n); border: 5px solid var(--n); box-shadow: 6px 7px 0 var(--n); font-family: "Marker"; text-transform: none; -webkit-text-stroke: 0; text-shadow: none; transform: rotate(-2deg); }}
+      .leg, .etq, .ilep span {{ padding: 4px 16px; border-radius: 6px; background: #fff; color: var(--n); border: 4px solid var(--n); box-shadow: 4px 5px 0 var(--n); font-family: "Marker"; font-weight: 400; transform: rotate(-2deg); }}
+      .leg {{ margin-top: -16px; font-size: 30px; position: relative; }}
+      .etq {{ font-size: 32px; }} .ilep span {{ font-size: 25px; }}
+      .mini {{ padding: 0; background: none; color: #fff; font-family: "Marker"; font-weight: 400; font-size: 26px; -webkit-text-stroke: 6px var(--n); paint-order: stroke fill; }}
+      .plaque {{ border: 6px solid var(--n); border-radius: 14px; box-shadow: 8px 9px 0 var(--n); transform: rotate(-1.5deg); }}
+      .carte {{ padding: 16px 40px; border-radius: 14px; background: #ffd93b; border: 7px solid var(--n); box-shadow: 9px 10px 0 var(--n); transform: rotate(-2deg); color: var(--n); }}
+      .carte small {{ font-family: "Marker"; font-weight: 400; color: var(--n); }} .carte b {{ font-weight: 400; color: var(--n); }}
+      .rapport {{ border-radius: 8px; border: 6px solid var(--n); box-shadow: 8px 9px 0 var(--n); transform: rotate(-1.5deg); }}
+      .rapport small {{ font-family: "Marker"; font-weight: 400; color: var(--n); }} .rapport b {{ font-weight: 400; }}
+      .tampon {{ padding: 8px 26px; border-radius: 10px; background: #ffd93b; color: var(--n); border: 6px solid var(--n); box-shadow: 7px 8px 0 var(--n); font-weight: 400; letter-spacing: .01em; }}
+      .gros {{ border-radius: 14px; border: 7px solid var(--n); box-shadow: 9px 10px 0 var(--n); font-weight: 400; }} .gros.rouge {{ background: #e5242b; border: 7px solid var(--n); }}
+      .chip {{ border-radius: 10px; background: #fff; border: 5px solid var(--n); box-shadow: 6px 7px 0 var(--n); font-weight: 400; font-size: 42px; }}
+      .ok {{ border: 4px solid var(--n); }}
+      .pct {{ color: #ffd93b; font-weight: 400; font-size: 62px; -webkit-text-stroke: 8px var(--n); paint-order: stroke fill; text-shadow: 3px 5px 0 var(--n); }}
+      .barre.gris {{ background: #fff; border: 5px solid var(--n); border-top: 0; }} .barre.rouge {{ background: #e5242b; border: 5px solid var(--n); border-bottom: 0; }}
+      .rond {{ font-weight: 400; border: 7px solid var(--n); box-shadow: 8px 9px 0 var(--n); }} .rond.rouge {{ background: #e5242b; }} .rond.petit {{ background: #ffd93b; }}
+      .tuile {{ border: 5px solid var(--n); box-shadow: 5px 6px 0 var(--n); }}
+      .mag {{ border: 4px solid var(--n); box-shadow: 4px 5px 0 var(--n); }}
+      .rachat {{ font-weight: 400; font-family: "Marker"; -webkit-text-stroke: 6px var(--n); paint-order: stroke fill; }}
+      .rachat b {{ font-family: "Lilita"; font-weight: 400; -webkit-text-stroke: 0; border: 5px solid var(--n); box-shadow: 5px 6px 0 var(--n); }}
+      .boite {{ border: 6px solid var(--n); background: rgba(255,255,255,.14); border-radius: 22px; box-shadow: 9px 10px 0 var(--n); }}
+      .boite span {{ font-weight: 400; background: #ffd93b; color: var(--n); border: 5px solid var(--n); border-radius: 10px; }}
+      .noeud {{ font-weight: 400; border: 6px solid var(--n); border-radius: 14px; box-shadow: 7px 8px 0 var(--n); }}
+      .quest {{ font-weight: 400; border: 5px solid var(--n); }}
+      .pgbh {{ font-weight: 400; border: 5px solid var(--n); box-shadow: 4px 5px 0 var(--n); }}
+      .piece {{ font-weight: 400; border: 5px solid var(--n); }}
+      .cadrev {{ border: 7px solid var(--n); border-radius: 14px; box-shadow: 9px 10px 0 var(--n); }}
+      .img1 {{ border: 7px solid var(--n); box-shadow: 9px 10px 0 var(--n); }} .img1.rouge {{ border: 7px solid var(--n); }}
+    </style>

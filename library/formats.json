@@ -1,11 +1,11 @@
 [
   {
     "id": "tvcat-explication",
-    "name": "TV cat — explication limpide (DA GBH)",
+    "name": "TV cat — DA de référence (GBH)",
     "ratio": "9:16",
     "style": "TV cat",
-    "usage": "Sujet expliqué en 1 min 20 sur un fond de vraies vidéos — règles validées sur la vidéo GBH (05/11/2026), à appliquer aux prochaines",
-    "description": "Fond de vraies vidéos du sujet, net quand Grilou parle seul et flouté dès qu'on explique. Grilou est gros et très expressif sur le fond net, absent pendant les gros plans. Explications en 2D propre (barres, cercles, schémas, vrais clips) et une 3D très rare. Montage voix très serré, sans aucun temps mort.",
+    "usage": "DA officielle depuis le 05/11/2026 (« j'adore, on garde tout ») — validée sur la vidéo GBH. Modèle complet : library/da-reference",
+    "description": "Fond de vraies vidéos, net quand Grilou parle seul et flouté dès qu'on explique. Grilou est là dès la 1re image, expressif, absent des gros plans. Textes colorés façon miniature YouTube (Lilita One, contour noir, bandeaux au feutre), explications 2D propres, voix sans temps mort, CTA violet aux yeux étoilés avec sa voix.",
     "zones": [
       {
         "label": "Zone de sécurité TikTok : tout le contenu ici",
@@ -41,7 +41,7 @@
   },
   {
     "id": "tvcat-schemas",
-    "name": "TV cat — schémas (DA de référence)",
+    "name": "TV cat — schémas (ancienne référence)",
     "ratio": "9:16",
     "style": "TV cat",
     "usage": "Actualité & politique, TikTok, 50–80 s — validée sur « Députés payés à rien faire ? » (21/10/2026), la préférée",
