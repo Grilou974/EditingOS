@@ -263,6 +263,11 @@ JS.append(f'tl.set("#cat img", {{opacity:0}}, {CTAF}); tl.set("#cta", {{opacity:
 JS.append(f'tl.fromTo("#cta-cat", {{opacity:0, scale:0.7, y:90}}, {{opacity:1, scale:1, y:0, duration:0.4, ease:"back.out(1.8)", immediateRender:false}}, {CTAF});')
 JS.append(f'tl.fromTo(".ctat", {{opacity:0, scale:0.6}}, {{opacity:1, scale:1, duration:0.32, ease:"back.out(2.4)", immediateRender:false}}, {LIKE});')
 SFX += [(CTAF, "scintillement", 0.4), (LIKE, "ding", 0.3)]
+# drapeau de La Réunion : de « réunionnais » à « et sur mon île » (temps réels de la voix finale)
+H.append(f'<img id="drapre" src="assets/img/drapeau-reunion.png" style="position:absolute;left:{C - 135}px;top:215px;width:270px;opacity:0;border:7px solid #15121f;border-radius:10px;box-shadow:8px 9px 0 #15121f;transform:rotate(-3deg)">')
+JS.append('tl.fromTo("#drapre", {opacity:0, scale:0.4, rotation:-12}, {opacity:1, scale:1, rotation:-3, duration:0.24, ease:"back.out(2.4)", immediateRender:false}, 0.28);')
+JS.append('tl.to("#drapre", {opacity:0, scale:0.8, duration:0.16, ease:"power2.in"}, 1.60);')
+SFX += [(0.28, "plop", 0.5)]
 H = [h.replace("« ", "«&nbsp;").replace(" »", "&nbsp;»") for h in H]; H1 = [h.replace("« ", "«&nbsp;").replace(" »", "&nbsp;»") for h in H1]
 SFX.sort(); _s = []
 for x in SFX:
