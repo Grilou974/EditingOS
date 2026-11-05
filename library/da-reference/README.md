@@ -10,6 +10,7 @@ Modèle complet de la vidéo GBH, à copier pour chaque nouvelle vidéo.
 - **Voix** : aucun temps mort au début, ≈ 0,1 s entre les idées, jamais un mot coupé, dernière bonne prise.
 - **Son** : musique discrète adaptée au sujet (-29 LUFS), bruitages de la compil sans en abuser.
 - **CTA** : écran violet, chat aux yeux étoilés, gros « Like et abonne-toi <3 », arrivée sur « Si la vidéo t'a plu », texte pile sur « like », toujours avec sa voix.
+- **Titre du début** : bien centré sur l'écran (x = 540 px).
 - **TikTok** : centre visuel x ≈ 495 px, largeur ≤ 760 px, y entre 250 et 1480 px.
 
 ## Fabriquer une vidéo

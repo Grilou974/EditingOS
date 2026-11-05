@@ -96,7 +96,7 @@ def tw(sel, de, vers, t, d=0.4, ease="power3.out"):
 def fin(sel, t): JS.append(f'tl.to("{sel}", {{opacity:0, duration:0.18}}, {round(t - 0.18, 2)});')
 
 # ---- intro (whoosh avant la voix : il ne recouvre plus « Je suis »)
-el(0.0, 2.15, '<div class="halo"></div><div class="titre">Pourquoi tout est si cher<br>dans les îles ?</div>', C, 530, kind=None, anim="net", flou=False)
+el(0.0, 2.15, '<div class="halo"></div><div class="titre">Pourquoi tout est si cher<br>dans les îles ?</div>', 540, 530, kind=None, anim="net", flou=False)
 
 # A — les prix : barres 2D au-dessus, îles dessous, caddie 3D tout en bas (jamais dans les barres)
 zone3d(T["iles"], T["ilesFin"])
