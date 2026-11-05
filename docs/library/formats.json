@@ -32,12 +32,12 @@
       "Chat : absent quand une illustration est en gros plan, il revient quand on dézoome ou sur le fond net. Il ne cache jamais une image.",
       "Peu de 3D (« ça fait PlayStation 2 ») : 2D propre par défaut, vrais clips, et les bâtiments / véhicules détourés de la bibliothèque maison. Jamais de cubes ni de prismes.",
       "Objets à côté des lignes et des flèches, jamais dessus. Aucun texte, légende ou badge par-dessus une image.",
-      "Zone de sécurité TikTok : centre visuel x ≈ 495 px, largeur ≤ 760 px, y entre 250 et 1480 px.",
+      "Zone de sécurité TikTok : centre visuel x ≈ 515 px (légèrement décalé à gauche, pas trop), largeur ≤ 760 px, y entre 250 et 1480 px.",
       "Aucun modèle qui oblige à créditer un auteur dans la vidéo si un équivalent libre existe. Pas d'emojis.",
       "Musique discrète et adaptée au sujet (enquête, tension) ; bruitages de la compil, sans en abuser.",
       "Typographie façon miniature YouTube, colorée : Lilita One en capitales, contour noir épais, ombre BD, mots-clés en jaune ; bandeaux légèrement penchés au feutre (Permanent Marker) ; cartes jaunes/blanches à bord noir. Plus de pastilles blanches en police simple.",
       "CTA : écran violet (dégradé radial), chat aux yeux étoilés (c04) avec halo, gros texte « Like et abonne-toi <3 ». L'écran arrive sur « Si la vidéo t'a plu », le texte pile sur « like ». Toujours avec sa voix ; si l'audio ne la contient pas, reprendre celle de montages/rn-interdit (161,30–164,00 s).",
-      "Titre du début bien centré sur l'écran (x = 540 px), contrairement aux illustrations décalées à x ≈ 495 pour la zone TikTok."
+      "Titre du début bien centré sur l'écran (x = 540 px), contrairement aux illustrations à x ≈ 515 pour la zone TikTok."
     ]
   },
   {

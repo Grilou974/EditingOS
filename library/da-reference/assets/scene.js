@@ -4,7 +4,7 @@ import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 
-const W = 1080, H = 1920, GAUCHE = 45;   // tout décalé vers la gauche : zone de sécurité TikTok (colonne d'icônes à droite)
+const W = 1080, H = 1920, GAUCHE = 25;   // tout décalé vers la gauche : zone de sécurité TikTok (colonne d'icônes à droite)
 const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById("t3d"), alpha: true, antialias: true, preserveDrawingBuffer: true });
 renderer.setSize(W, H, false); renderer.setPixelRatio(1); renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.0;
 const scene = new THREE.Scene();

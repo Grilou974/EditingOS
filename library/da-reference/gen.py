@@ -6,7 +6,7 @@ import json, re
 OFF = 0.24   # voix démarrée 0,17 s plus tôt (attaque de « Je suis ») : tous les temps ci-dessous sont décalés d'autant à la fin
 CTA = 82.80
 END = 85.2
-C = 495      # centre visuel : zone de sécurité TikTok (icônes à droite), largeur max ≈ 760 px
+C = 515      # centre visuel : zone de sécurité TikTok (icônes à droite), largeur max ≈ 760 px
 SND = {"pop": ["plop", "pop-explainer", "pop-bulle", "pop-sec", "plop", "pop-dur"],
        "cadre": ["coup-sec", "whoosh-air", "swoosh-court", "coup-sec", "sweep-a"],
        "date": ["whoosh-grave", "swoosh-court", "whoosh-grave", "sweep-a"],
@@ -143,16 +143,16 @@ zone3d(T["chaine"], T["chaineFin"])
 lab(20.20, 22.5, "L'<i>APPROVISIONNEMENT</i>", C, 280, fs=46, kind=None)
 lab(23.0, 25.3, "PLUSIEURS <i>ÉTAPES</i>", C, 280, c="rouge", fs=50)
 SERP = "M500 350 C 650 420, 650 520, 500 600 S 350 750, 500 830 S 650 980, 500 1060 S 350 1210, 490 1300"
-H.append(f'<svg id="ser" width="1080" height="1920" viewBox="0 0 1080 1920" style="position:absolute;left:0;top:0;opacity:0"><path id="serp" d="{SERP}" fill="none" stroke="#fff" stroke-width="12" stroke-linecap="round" pathLength="1000" stroke-dasharray="1000" stroke-dashoffset="1000" style="filter:drop-shadow(0 4px 10px rgba(0,0,0,.5))"/></svg>')
+H.append(f'<svg id="ser" width="1080" height="1920" viewBox="0 0 1080 1920" style="position:absolute;left:0;top:0;opacity:0"><path id="serp" transform="translate(20 0)" d="{SERP}" fill="none" stroke="#fff" stroke-width="12" stroke-linecap="round" pathLength="1000" stroke-dasharray="1000" stroke-dashoffset="1000" style="filter:drop-shadow(0 4px 10px rgba(0,0,0,.5))"/></svg>')
 JS.append(f'tl.set("#ser", {{opacity:1}}, {T["chaine"]});'); fin("#ser", T["chaineFin"])
 JS.append(f'tl.fromTo("#serp", {{attr:{{"stroke-dashoffset":1000}}}}, {{attr:{{"stroke-dashoffset":0}}, duration:{round(T["c5"] - T["chaine"], 2)}, ease:"none", immediateRender:false}}, {T["chaine"]});')
-for t, img_, w, x, y, nom, kd in [(T["c1"], "bateau.png", 300, 225, 480, "Bateau", "pop"), (T["c2"], "bat-entrepot.png", 340, 745, 660, "Entrepôt", "pop"), (T["c3"], "veh-camion.png", 300, 225, 880, "Camion", "pop"), (T["c4"], "bat-centre-commercial.png", 340, 745, 1090, "Magasin", "pop")]:
+for t, img_, w, x, y, nom, kd in [(T["c1"], "bateau.png", 300, 245, 480, "Bateau", "pop"), (T["c2"], "bat-entrepot.png", 340, 765, 660, "Entrepôt", "pop"), (T["c3"], "veh-camion.png", 300, 245, 880, "Camion", "pop"), (T["c4"], "bat-centre-commercial.png", 340, 765, 1090, "Magasin", "pop")]:
     el(t, T["chaineFin"], f'<img src="assets/img/{img_}" style="width:{w}px;display:block;filter:drop-shadow(0 10px 18px rgba(0,0,0,.45))"><div class="etq">{nom}</div>', x, y, kind=kd)
-el(T["c5"] + 0.1, T["chaineFin"], '<div class="etq">Votre panier</div>', 235, 1440, kind=None); son(T["c5"], "ding")
-for t, x, y in [(T["b1"], 830, 478), (T["b2"], 150, 705), (T["b3"], 830, 900)]:
+el(T["c5"] + 0.1, T["chaineFin"], '<div class="etq">Votre panier</div>', 255, 1440, kind=None); son(T["c5"], "ding")
+for t, x, y in [(T["b1"], 850, 478), (T["b2"], 170, 705), (T["b3"], 850, 900)]:
     el(t, T["chaineFin"], '<div class="pgbh">GBH</div>', x, y, kind="tampon", anim="tampon")
 H.append('<img id="colis" src="assets/img/colis.png" style="position:absolute;left:0;top:0;width:84px;opacity:0">')
-JS.append(f'(() => {{ const p = document.getElementById("serp"), e = document.getElementById("colis"), L = p.getTotalLength(), o = {{u:0}}; tl.set(e, {{opacity:1}}, {T["c1"]}); tl.fromTo(o, {{u:0}}, {{u:1, duration:{round(T["c5"] - T["c1"], 2)}, ease:"none", immediateRender:false, onUpdate:() => {{ const q = p.getPointAtLength(o.u * L); e.style.transform = `translate(${{q.x - 42}}px, ${{q.y - 50}}px)`; }}}}, {T["c1"]}); tl.set(e, {{opacity:0}}, {T["c5"] + 0.3}); }})();')
+JS.append(f'(() => {{ const p = document.getElementById("serp"), e = document.getElementById("colis"), L = p.getTotalLength(), o = {{u:0}}; tl.set(e, {{opacity:1}}, {T["c1"]}); tl.fromTo(o, {{u:0}}, {{u:1, duration:{round(T["c5"] - T["c1"], 2)}, ease:"none", immediateRender:false, onUpdate:() => {{ const q = p.getPointAtLength(o.u * L); e.style.transform = `translate(${{q.x - 22}}px, ${{q.y - 50}}px)`; }}}}, {T["c1"]}); tl.set(e, {{opacity:0}}, {T["c5"] + 0.3}); }})();')
 
 # E — le poids de GBH face aux concurrents : des cercles, simple et net
 zone3d(T["poids"], T["poidsFin"])
@@ -348,10 +348,10 @@ html = f"""<!doctype html>
       #root {{ font-family: "Lilita", sans-serif; --n: #15121f; }}
       .titre, .ctat {{ font-family: "Lilita"; font-weight: 400; letter-spacing: .01em; }}
       .titre {{ font-size: 68px; -webkit-text-stroke: 10px var(--n); paint-order: stroke fill; text-shadow: 5px 7px 0 var(--n); }}
-      .ctat {{ position: absolute; top: 330px; left: 0; width: 990px; text-align: center; color: #fff; font-size: 108px; line-height: 1.06; -webkit-text-stroke: 12px var(--n); paint-order: stroke fill; text-shadow: 6px 8px 0 var(--n); opacity: 0; }}
+      .ctat {{ position: absolute; top: 330px; left: 0; width: 1030px; text-align: center; color: #fff; font-size: 108px; line-height: 1.06; -webkit-text-stroke: 12px var(--n); paint-order: stroke fill; text-shadow: 6px 8px 0 var(--n); opacity: 0; }}
       .ctat i {{ font-style: normal; color: #ffd93b; }} .ctat u {{ text-decoration: none; color: #ff5d8f; }}
       #cta {{ background: radial-gradient(80% 55% at 50% 70%, #3b2a8f 0%, #170f3d 55%, #07060f 100%); }}
-      #cta-cat {{ position: absolute; left: 0; width: 990px; bottom: -40px; height: 1200px; display: flex; justify-content: center; align-items: flex-end; opacity: 0; transform-origin: 50% 100%; }}
+      #cta-cat {{ position: absolute; left: 0; width: 1030px; bottom: -40px; height: 1200px; display: flex; justify-content: center; align-items: flex-end; opacity: 0; transform-origin: 50% 100%; }}
       #cta #cta-cat img {{ position: static; height: 100%; width: auto; transform: none; opacity: 1; filter: drop-shadow(0 0 34px rgba(150,130,255,.75)) drop-shadow(0 0 4px rgba(255,255,255,.5)); }}
       .lab {{ zoom: 1.2; }}
       .lab {{ padding: 0; background: none; box-shadow: none; color: #fff; font-weight: 400; text-transform: uppercase; letter-spacing: .01em; -webkit-text-stroke: 9px var(--n); paint-order: stroke fill; text-shadow: 4px 6px 0 var(--n); }}
