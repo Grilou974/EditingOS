@@ -18,3 +18,10 @@ Modèle complet de la vidéo GBH, à copier pour chaque nouvelle vidéo.
 2. `bg.py` : fonds net et flou.
 3. `gen.py` : composition (`index.html`, `sfx.json`).
 4. `npx hyperframes@0.8.164 render -o renders/_video.mp4 .` puis `mix.py`.
+
+## Mise à jour du 13/11/2026 : « j'aime énormément, on garde cette DA »
+Modèle actuel : `exemple-le-pen/` (moteur `outils/da_ref.py`).
+- Fonds 100 % libres trouvés par moi : photos Wikimedia Commons des personnes (zoom lent) et vidéos Pexels (`outils/dl_pexels.py`), crédits dans CREDITS.md.
+- Voix : `outils/voix_ref.py --rythme` (blancs et respirations retirés, aucun mot perdu), 0,12 s avant le 1er mot, CTA avec sa voix et sa durée réelle.
+- Chat : une expression toutes les 2-3 s, jamais plus de 3 s sur la même pose quand il est visible.
+- Contrôles : aucun chevauchement (`outils/chevauchements.js`), saturation vérifiée, fin du CTA transcrite.
